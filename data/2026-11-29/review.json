@@ -22,12 +22,12 @@
     {
       "institution": "MLPS",
       "status": "partial",
-      "note": "Pagina Studi e statistiche consultata: pubblicati report periodici (es. premi di produttività al 16/11/2026) senza date future annunciate. Pagina Eventi e Fiere non raggiungibile (HTTP 404 sull'URL tentato). La nota trimestrale congiunta sul mercato del lavoro (11/12) è registrata sotto ISTAT. Nessun evento datato individuato."
+      "note": "Pagina Studi e statistiche consultata: pubblicati report periodici (es. premi di produttività al 16/11/2026) senza date future annunciate. Pagina Eventi e Fiere non raggiungibile (HTTP 404 sull'URL tentato). La nota trimestrale congiunta sul mercato del lavoro (11/12) è registrata sotto ISTAT. Nessun evento datato individuato. Audit ChatGPT: individuato PDF ufficiale SISCO con data del 7 dicembre; aggiunta la nota trimestrale CO."
     },
     {
       "institution": "INAPP",
-      "status": "unavailable",
-      "note": "Pagina eventi inapp.gov.it restituisce HTTP 403 (protezione anti-bot) sia a curl sia al fetch: nessun aggiramento tentato. Ricerche web non hanno trovato eventi dicembre 2026 annunciati; nel dicembre 2025 il Gender Policy Report fu presentato il 17/12, ma una ricorrenza 2026 non è confermata e non viene inserita."
+      "status": "partial",
+      "note": "Pagina eventi inapp.gov.it restituisce HTTP 403 (protezione anti-bot) sia a curl sia al fetch: nessun aggiramento tentato. Ricerche web non hanno trovato eventi dicembre 2026 annunciati; nel dicembre 2025 il Gender Policy Report fu presentato il 17/12, ma una ricorrenza 2026 non è confermata e non viene inserita. Audit ChatGPT: reperiti tre eventi da fonti ufficiali indicizzate, due con accesso diretto non riuscito e segnati provvisori; per le nuove tecnologie disponibile testo della pagina."
     },
     {
       "institution": "Unioncamere",
@@ -57,7 +57,7 @@
     {
       "institution": "OECD",
       "status": "partial",
-      "note": "Calendario OCSE, pagina pubblicazioni future e media advisory restituiscono HTTP 403 (anche alla raccolta Python). Inserito come provvisorio l'aggiornamento della disoccupazione armonizzata del 10/12 sulla base dell'indice di ricerca della pagina ufficiale. Economic Outlook di dicembre 2026: fonti indicizzate discordanti (1/12 oppure 10–11/12), non inserito."
+      "note": "Calendario OCSE, pagina pubblicazioni future e media advisory restituiscono HTTP 403 (anche alla raccolta Python). Inserito come provvisorio l'aggiornamento della disoccupazione armonizzata del 10/12 sulla base dell'indice di ricerca della pagina ufficiale. Economic Outlook di dicembre 2026: fonti indicizzate discordanti (1/12 oppure 10–11/12), non inserito. Audit ChatGPT: indice pubblicazioni indica 1 dicembre per Economic Outlook, pagina evento indicizzata indica 4 dicembre. Non inserito per conflitto e mancata conferma diretta."
     },
     {
       "institution": "World Bank",
@@ -67,7 +67,7 @@
     {
       "institution": "CNEL",
       "status": "partial",
-      "note": "Pagina attività consultata: solo eventi passati (novembre 2026). Il Rapporto sul mercato del lavoro e la contrattazione collettiva 2026 è già stato approvato il 22/04/2026. Un eventuale rapporto sull'attrattività per i giovani (presentato a inizio dicembre nel 2025) non ha data ufficiale 2026: non inserito."
+      "note": "Pagina attività consultata: solo eventi passati (novembre 2026). Il Rapporto sul mercato del lavoro e la contrattazione collettiva 2026 è già stato approvato il 22/04/2026. Un eventuale rapporto sull'attrattività per i giovani (presentato a inizio dicembre nel 2025) non ha data ufficiale 2026: non inserito. Audit ChatGPT: individuato annuncio ufficiale indicizzato del 20 novembre per il 9 dicembre, apertura diretta non riuscita; inserito come provvisorio."
     },
     {
       "institution": "ADAPT",
@@ -157,6 +157,16 @@
       "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Unemployment – ottobre 2026», periodo di riferimento ottobre 2026, data 2026-12-02."
     },
     {
+      "institution": "INAPP",
+      "date": "2026-12-02",
+      "title": "Presentazione dei rapporti di monitoraggio su apprendistato e tirocini extracurriculari",
+      "url": "https://www.inapp.gov.it/eventi/apprendistato-e-tirocinio-extracurriculare-presentazione-dei-rapporti-di-monitoraggio",
+      "relevance": "high",
+      "certainty": "tentative",
+      "why": "Analisi dell'ingresso dei giovani nel mercato del lavoro e dei percorsi formativi.",
+      "evidence": "Audit ChatGPT 25/11/2026: risultato indicizzato della pagina ufficiale INAPP indica il 2 dicembre 2026 e la presentazione dei due rapporti. Apertura diretta non riuscita; data da ricontrollare."
+    },
+    {
       "institution": "ISTAT",
       "title": "Occupati e disoccupati (stima provvisoria) – ottobre 2026",
       "date": "2026-12-02",
@@ -175,6 +185,16 @@
       "certainty": "confirmed",
       "why": "Indicatori di povertà ed esclusione sociale per persone con disabilità.",
       "evidence": "News article. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «People with a disability at risk of poverty or social exclusion (2025)», periodo di riferimento 2025, data 2026-12-03."
+    },
+    {
+      "institution": "INAPP",
+      "date": "2026-12-03",
+      "title": "Nuove tecnologie, mercato del lavoro e competitività: presentazione del rapporto sulle transizioni lavorative",
+      "url": "https://www.inapp.gov.it/eventi/nuove-tecnologie-mercato-del-lavoro-e-competitivita-evidenze-per-le-politiche-pubbliche",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Flussi e mobilità del lavoro per settore, produttività, distribuzione del reddito e riallocazione produttiva.",
+      "evidence": "Audit ChatGPT 25/11/2026: testo della pagina ufficiale reperito nella ricerca web indica 3 dicembre 2026 e presentazione del rapporto sulle transizioni lavorative."
     },
     {
       "institution": "ISTAT",
@@ -207,6 +227,16 @@
       "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Services production – settembre 2026», periodo di riferimento settembre 2026, data 2026-12-07."
     },
     {
+      "institution": "MLPS",
+      "date": "2026-12-07",
+      "title": "Nota sulle Comunicazioni Obbligatorie – III trimestre 2026",
+      "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/calendario-diffusione-dati-sisco-2026",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Dati amministrativi sui flussi di lavoro, complementari alle rilevazioni ISTAT e INPS.",
+      "evidence": "Audit ChatGPT 25/11/2026: PDF del calendario SISCO 2026, ultima riga della tabella, indica 7 dicembre 2026; verificato anche visivamente."
+    },
+    {
       "institution": "Eurostat",
       "title": "Labour productivity – Q3/2026",
       "date": "2026-12-08",
@@ -225,6 +255,16 @@
       "certainty": "confirmed",
       "why": "Povertà percepita nei paesi UE.",
       "evidence": "News article e Statistics Explained. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Subjective poverty (2025)», periodo di riferimento 2025, data 2026-12-08."
+    },
+    {
+      "institution": "CNEL",
+      "date": "2026-12-09",
+      "title": "Presentazione del rapporto sull'attrattività dell'Italia per i giovani dei Paesi avanzati",
+      "url": "https://www.cnel.it/comunicazione-e-stampa/notizie/news/detail/2026/11/20/il-9-dicembre-al-cnel-la-seconda-edizione-del-rapporto--l-attrattivit%C3%A0-dell-italia-per-i-giovani-dei-paesi-avanzati",
+      "relevance": "medium",
+      "certainty": "tentative",
+      "why": "Mobilità internazionale e attrattività del mercato del lavoro italiano per i giovani.",
+      "evidence": "Audit ChatGPT 25/11/2026: annuncio ufficiale indicizzato del 20 novembre indica 9 dicembre 2026 alle 11; apertura diretta non riuscita. Data da ricontrollare."
     },
     {
       "institution": "Banca d’Italia",
@@ -315,6 +355,16 @@
       "certainty": "confirmed",
       "why": "Imprese con dipendenti e relativa occupazione.",
       "evidence": "Pubblicazione statistica (non evento). Calendario degli aggiornamenti 2026 degli Osservatori statistici INPS (ultimo aggiornamento 17/11/2026), sezione DICEMBRE 2026: «Osservatorio Imprese», periodo di riferimento 2015 - 2025, data di pubblicazione «Lunedì - 14»."
+    },
+    {
+      "institution": "INAPP",
+      "date": "2026-12-15",
+      "title": "Presentazione Gender Policy Report 2026",
+      "url": "https://www.inapp.gov.it/eventi/gender-policy-report-2026",
+      "relevance": "high",
+      "certainty": "tentative",
+      "why": "Analisi delle disuguaglianze di genere nel mercato del lavoro.",
+      "evidence": "Audit ChatGPT 25/11/2026: pagina ufficiale indicizzata indica 15 dicembre 2026 alle 10 e presentazione del rapporto annuale. Apertura diretta non riuscita; data da ricontrollare."
     },
     {
       "institution": "INPS",
