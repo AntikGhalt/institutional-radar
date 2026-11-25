@@ -1,0 +1,43 @@
+name: 1 - Collect institutional sources
+on:
+  workflow_dispatch:
+    inputs:
+      demo:
+        description: Use synthetic data
+        type: boolean
+        default: true
+      date:
+        description: Sunday run ID (YYYY-MM-DD)
+        type: string
+  schedule:
+    - cron: '20 20 * * 0'
+      timezone: Europe/Rome
+permissions:
+  contents: write
+concurrency:
+  group: radar-data
+  cancel-in-progress: false
+jobs:
+  collect:
+    if: github.ref_name == github.event.repository.default_branch && (github.event_name == 'workflow_dispatch' || vars.ENABLE_SCHEDULE == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect and commit
+        env:
+          DEMO: ${{ inputs.demo }}
+          RUN_DATE: ${{ inputs.date }}
+        run: |
+          args=()
+          if [[ "$DEMO" == true ]]; then args+=(--demo); fi
+          if [[ -n "$RUN_DATE" ]]; then args+=(--date "$RUN_DATE"); fi
+          python -m src.radar collect "${args[@]}"
+          git config user.name 'institutional-radar[bot]'
+          git config user.email 'institutional-radar[bot]@users.noreply.github.com'
+          git add data/
+          git commit -m 'Collect institutional candidates'
+          git push

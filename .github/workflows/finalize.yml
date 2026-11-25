@@ -1,0 +1,65 @@
+name: 2 - Build digest and optionally deliver
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: Sunday run ID (YYYY-MM-DD)
+        type: string
+      send:
+        description: Request live delivery
+        type: boolean
+        default: false
+  schedule:
+    - cron: '30 23 * * 0'
+      timezone: Europe/Rome
+permissions:
+  contents: write
+concurrency:
+  group: radar-data
+  cancel-in-progress: false
+jobs:
+  finalize:
+    if: github.ref_name == github.event.repository.default_branch && (github.event_name == 'workflow_dispatch' || vars.ENABLE_SCHEDULE == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Preview
+        env:
+          RUN_DATE: ${{ inputs.date }}
+        run: |
+          args=()
+          if [[ -n "$RUN_DATE" ]]; then args+=(--date "$RUN_DATE"); fi
+          python -m src.radar finalize "${args[@]}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: institutional-radar-preview
+          path: output/
+          retention-days: 14
+      - name: Deliver
+        if: vars.ENABLE_EMAIL == 'true' && (github.event_name == 'schedule' || inputs.send == true)
+        env:
+          ENABLE_EMAIL: ${{ vars.ENABLE_EMAIL }}
+          RUN_DATE: ${{ inputs.date }}
+          SMTP_HOST: ${{ vars.SMTP_HOST }}
+          SMTP_PORT: ${{ vars.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+        run: |
+          args=()
+          if [[ -n "$RUN_DATE" ]]; then args+=(--date "$RUN_DATE"); fi
+          python -m src.radar finalize "${args[@]}" --send
+      - name: Record delivery attempt
+        if: always()
+        run: |
+          git config user.name 'institutional-radar[bot]'
+          git config user.email 'institutional-radar[bot]@users.noreply.github.com'
+          git add data/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record delivery attempt'
+            git push
+          fi
