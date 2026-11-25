@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "run_date": "2026-11-29",
+  "collection_blob_sha": "9dc4cf3ca6b0ce968c128514b398399540d3d074",
+  "review_blob_sha": "f78c47868c4864b143880a723ab927829f30e73f",
+  "status": "approved",
+  "auditor": "ChatGPT",
+  "summary": "Audit indipendente eseguito il 25/11/2026: confronto delle date ISTAT con PDF ufficiale (pagina 6) e feed iCalendar, dei calendari Eurostat/INPS/MLPS/Banca d’Italia con i dati effettivi del test GitHub Actions https://github.com/AntikGhalt/institutional-radar/actions/runs/45625056281, e ricerca degli annunci fuori calendario. Selezione rivista secondo il profilo editoriale: 42 appuntamenti, 34 con data confermata nelle fonti consultate e 8 provvisori; aggiunte 9 voci su demografia, turismo, commercio, fatturato servizi, R&S, dati strutturali sulle imprese, lancio della strategia contro la povertà e prospettive OCSE; escluse 4 voci secondarie. Calendario SISCO https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/calendario-diffusione-dati-sisco-2026 verificato anche visivamente. Feed Eurostat https://ec.europa.eu/eurostat/o/calendars/eventsIcal?category=0&theme=0. Il lancio della Coalition Against Poverty e dell’Economic Outlook resta provvisorio perché reperito nell’indice ufficiale senza apertura diretta.",
+  "limitations": "La collezione immutabile iniziale precede i parser strutturati: non contiene eventi datati grezzi. L’audit ha consultato separatamente i risultati del test reale dei cinque parser. Copertura non esaustiva: accessi limitati a ILO, INAPP, OCSE, CNEL e DG EMPL e ricerca mirata, non integrale, delle altre fonti parziali. Il calendario INPS consultabile e quello indicizzato aggiornato al 17/11 discordano sulla voce Imprese: 14 dicembre mantenuto provvisorio ed escluso dall’ICS. Nessuna data certa per un nuovo indicatore europeo di povertà assoluta. Le date sono quelle annunciate il 25/11; possono cambiare. Nessuna email inviata."
+}
