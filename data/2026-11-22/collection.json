@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "run_date": "2026-11-22",
+  "mode": "demo",
+  "created_at": "2026-11-25T12:44:11.781825+01:00",
+  "sources": [
+    {
+      "institution": "ISTAT",
+      "entry_url": "https://www.istat.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "Eurostat",
+      "entry_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "INPS",
+      "entry_url": "https://www.inps.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "MLPS",
+      "entry_url": "https://www.lavoro.gov.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "INAPP",
+      "entry_url": "https://www.inapp.gov.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "Unioncamere",
+      "entry_url": "https://excelsior.unioncamere.net/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "INAIL",
+      "entry_url": "https://www.inail.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "ILO",
+      "entry_url": "https://ilostat.ilo.org/resources/calendar/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "Banca d’Italia",
+      "entry_url": "https://www.bancaditalia.it/media/agenda/index.html",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "MEF",
+      "entry_url": "https://www.mef.gov.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "OECD",
+      "entry_url": "https://www.oecd.org/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "World Bank",
+      "entry_url": "https://www.worldbank.org/en/events/all",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "CNEL",
+      "entry_url": "https://www.cnel.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "ADAPT",
+      "entry_url": "https://www.adapt.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "Fondazione Studi CdL",
+      "entry_url": "https://www.consulentidellavoro.it/",
+      "links": [],
+      "status": "demo_not_fetched"
+    },
+    {
+      "institution": "DG EMPL",
+      "entry_url": "https://employment-social-affairs.ec.europa.eu/",
+      "links": [],
+      "status": "demo_not_fetched"
+    }
+  ],
+  "events": []
+}
