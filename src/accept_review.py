@@ -46,6 +46,9 @@ def main():
     review=strict_review(json.loads(base64.b64decode(data["content"])))
     radar.validate_review(raw,review)
     print("Review structurally validated; factual source claims still require pilot audit.")
+    if raw["mode"]=="live":
+        print("Live acceptance belongs to the independent auditor; never auto-merge before audit.")
+        return
     if os.environ.get("DRY_RUN")=="true": return
     current=api(f"repos/{repo}/branches/main")["commit"]["sha"]
     if current!=os.environ["TRUSTED_MAIN_SHA"]: raise ValueError("Main changed during validation; retry")

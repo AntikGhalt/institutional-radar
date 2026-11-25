@@ -21,3 +21,6 @@ The data-only PR gate runs on trusted main and never checks out PR code. It acce
 
 ## Dedicated adapters
 ISTAT public iCal (and additional feed discovery), Eurostat iCal, INPS monthly HTML table, MLPS annual SISCO PDF (`pdftotext`), Banca d’Italia monthly agenda. `python -m src.parser_smoke` runs a non-mutating live probe, saved as an Actions artifact. The generic candidate links remain available if an adapter fails. Adapters emit leads, not approved dates. Existing snapshots are immutable; repeated collection of the same mode/run ID is a no-op. The first pilot snapshot predates these adapters.
+
+## Independent audit and safe delivery
+Live PRs are never automatically merged by the structural validator. The independent auditor reviews and merges only the data PR after exact-head checks, then records audit.json on main with exact Git blob SHAs. A missing or stale audit blocks delivery. SMTP is additionally gated by ENABLE_EMAIL=true. A reservation is committed before attempting SMTP; a crash or ambiguous send blocks retry pending manual inspection. Enable ENABLE_SCHEDULE=true for collection/preview only; leave ENABLE_EMAIL unset until the scheduled audit and preview have been tested. No email credentials belong in code or repository variables.

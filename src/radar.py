@@ -7,6 +7,7 @@ from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 from src.calendars import adapter
+from src.audit import validate_audit
 
 ROOT=Path(__file__).resolve().parents[1]
 TZ=ZoneInfo("Europe/Rome")
@@ -128,13 +129,21 @@ def render(raw,review):
             lines+=["BEGIN:VEVENT","UID:"+uid,"DTSTAMP:"+dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ"),"DTSTART;VALUE=DATE:"+d.strftime("%Y%m%d"),"DTEND;VALUE=DATE:"+(d+dt.timedelta(days=1)).strftime("%Y%m%d"),"SUMMARY:"+ics_escape(e["institution"]+" — "+e["title"]),"DESCRIPTION:"+ics_escape(e["why"]+"\n"+e["url"]),"TRANSP:TRANSPARENT","END:VEVENT"]
     lines.append("END:VCALENDAR"); out=ROOT/"output"/raw["run_date"]; out.mkdir(parents=True,exist_ok=True)
     (out/"report.html").write_text("\n".join(h),encoding="utf-8"); (out/"calendar.ics").write_bytes(("\r\n".join(map(fold,lines))+"\r\n").encode()); return out,title
-def send(raw,review,out,title):
+def send(raw,review,out,title,reserve_only=False):
     if raw["mode"]!="live" or review is None: raise ValueError("Sending blocked: requires live validated review")
     if os.getenv("ENABLE_EMAIL")!="true": raise ValueError("Sending disabled")
+    directory=ROOT/"data"/raw["run_date"]
+    if not (directory/"audit.json").is_file(): raise ValueError("Independent audit missing; delivery blocked")
+    validate_audit(directory,raw,review,load(directory/"audit.json"))
     receipt=ROOT/"data"/raw["run_date"]/"delivery.json"
-    if receipt.exists(): raise ValueError("Already sent or attempted; inspect receipt before retry")
+    token=os.getenv("RADAR_DELIVERY_TOKEN","")
+    if not token: raise ValueError("Delivery requires a workflow reservation token")
+    if reserve_only and receipt.exists(): raise ValueError("Already reserved or attempted; inspect receipt before retry")
+    if not reserve_only and (not receipt.exists() or load(receipt).get("status")!="reserved" or load(receipt).get("token")!=token): raise ValueError("Missing matching persisted reservation")
     env={k:os.environ.get(k,"") for k in ("SMTP_USER","SMTP_PASSWORD","NOTIFY_TO")}
     if not all(env.values()): raise ValueError("SMTP credentials or recipient not configured")
+    if reserve_only:
+        write(receipt,{"status":"reserved","token":token,"at":dt.datetime.now(TZ).isoformat()}); return
     msg=EmailMessage(); msg["Subject"]=title; msg["From"]=env["SMTP_USER"]; msg["To"]=env["NOTIFY_TO"]; msg.set_content("Agenda istituzionale: consultare la versione HTML."); msg.add_alternative(read(out/"report.html"),subtype="html"); msg.add_attachment((out/"calendar.ics").read_bytes(),maintype="text",subtype="calendar",filename="calendar.ics")
     write(receipt,{"status":"attempting","at":dt.datetime.now(TZ).isoformat()})
     try:
@@ -145,7 +154,7 @@ def send(raw,review,out,title):
         raise RuntimeError("SMTP attempt failed; inspect sender account before retry") from None
     write(receipt,{"status":"sent","at":dt.datetime.now(TZ).isoformat()})
 def main():
-    p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash"]); p.add_argument("--date",type=dt.date.fromisoformat,default=run_date()); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash"]); p.add_argument("--date",type=dt.date.fromisoformat,default=run_date()); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); p.add_argument("--reserve",action="store_true"); a=p.parse_args()
     if a.date.weekday()!=6: p.error("Run date must be a Sunday")
     directory=ROOT/"data"/str(a.date)
     if a.command=="collect":
@@ -161,5 +170,6 @@ def main():
         write(directory/"review.json",make_demo_review(raw)); return
     review=validate_review(raw,load(directory/"review.json")) if (directory/"review.json").exists() else None
     out,title=render(raw,review); print(out)
-    if a.send: send(raw,review,out,title)
+    if a.send and a.reserve: p.error("Choose reserve or send, not both")
+    if a.send or a.reserve: send(raw,review,out,title,reserve_only=a.reserve)
 if __name__=="__main__": main()

@@ -39,10 +39,31 @@ jobs:
           name: institutional-radar-preview
           path: output/
           retention-days: 14
-      - name: Deliver
+      - name: Reserve delivery on main before SMTP
         if: vars.ENABLE_EMAIL == 'true' && (github.event_name == 'schedule' || inputs.send == true)
         env:
           ENABLE_EMAIL: ${{ vars.ENABLE_EMAIL }}
+          RADAR_DELIVERY_TOKEN: ${{ github.run_id }}-${{ github.run_attempt }}
+          RUN_DATE: ${{ inputs.date }}
+          SMTP_HOST: ${{ vars.SMTP_HOST }}
+          SMTP_PORT: ${{ vars.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+        run: |
+          args=()
+          if [[ -n "$RUN_DATE" ]]; then args+=(--date "$RUN_DATE"); fi
+          python -m src.radar finalize "${args[@]}" --reserve
+          git config user.name 'institutional-radar[bot]'
+          git config user.email 'institutional-radar[bot]@users.noreply.github.com'
+          git add data/
+          git commit -m 'Reserve institutional digest delivery'
+          git push
+      - name: Deliver reserved digest
+        if: vars.ENABLE_EMAIL == 'true' && (github.event_name == 'schedule' || inputs.send == true)
+        env:
+          ENABLE_EMAIL: ${{ vars.ENABLE_EMAIL }}
+          RADAR_DELIVERY_TOKEN: ${{ github.run_id }}-${{ github.run_attempt }}
           RUN_DATE: ${{ inputs.date }}
           SMTP_HOST: ${{ vars.SMTP_HOST }}
           SMTP_PORT: ${{ vars.SMTP_PORT }}
