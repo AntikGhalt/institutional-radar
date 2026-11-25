@@ -180,7 +180,7 @@ def adapter(source,start,end,sample_dir=None):
             data,_,enc=fetch(ISTAT_ICS,["google.com"])
             text=data.decode(enc,errors="replace")
             from src.fixtures import ical_excerpt
-            capture("istat.ics" if name=="ISTAT" else "eurostat.ics",lambda:ical_excerpt(text))
+            capture("istat.ics",lambda:ical_excerpt(text))
             return parse_ics(text,name,url,include_cancelled=True)
         attempt("official_press_ical",istat_feeds)
         def discover():
@@ -189,14 +189,16 @@ def adapter(source,start,end,sample_dir=None):
                 u=urljoin(final,href)
                 if approved(u,["google.com"]) and "/public/basic.ics" in urlsplit(u).path and u!=ISTAT_ICS: feeds.add(u)
             for u in sorted(feeds)[:5]:
-                data,_,enc=fetch(u,["google.com"]); out+=parse_ics(data.decode(enc,errors="replace"),name,url)
+                data,_,enc=fetch(u,["google.com"]); out+=parse_ics(data.decode(enc,errors="replace"),name,url,include_cancelled=True)
             if not feeds: raise ValueError("No additional public iCal links")
             return out
         attempt("additional_ical_discovery",discover)
     elif name=="Eurostat":
         def euro():
-            data,_,enc=fetch(EUROSTAT_ICS,hosts)
-            return parse_ics(data.decode(enc,errors="replace"),name,url)
+            data,_,enc=fetch(EUROSTAT_ICS,hosts); text=data.decode(enc,errors="replace")
+            from src.fixtures import ical_excerpt
+            capture("eurostat.ics",lambda:ical_excerpt(text))
+            return parse_ics(text,name,url,include_cancelled=True)
         attempt("official_release_ical",euro)
     elif name=="INPS":
         def inps():

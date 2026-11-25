@@ -1,4 +1,4 @@
-"""Accept only validated, owner-authored, same-repository review-data PRs.
+"""Validate owner-authored, same-repository review-data PRs.
 
 Never check out or execute pull request code. GitHub's API supplies JSON data.
 """
@@ -35,7 +35,7 @@ def main():
     raw=validate_collection(load(ROOT/"data"/str(date)/"collection.json"),date)
     if (ROOT/path).exists(): raise ValueError("Review already exists")
     data=api(f"repos/{repo}/contents/{path}?ref={sha}")
-    if data["size"]>500000 or data["encoding"]!="base64": raise ValueError("Invalid review content")
+    if data["size"]>1_000_000 or data["encoding"]!="base64": raise ValueError("Invalid review content")
     review=validate_review(raw,json.loads(base64.b64decode(data["content"])))
     print(f"Validated review at {sha}: {len(review['events'])} events; no merge performed.")
 if __name__=="__main__": main()

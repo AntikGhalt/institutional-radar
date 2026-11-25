@@ -23,24 +23,31 @@ def weekly_health(data,run,stages):
     result={}
     for name,(state,note) in stages.items():
         old=previous.get(name,{})
-        streak=0 if state=="ok" else 1+int(old.get("missed_weeks",0))
+        advisory=name=="parser_quality"
+        streak=0 if advisory or state=="ok" else 1+int(old.get("missed_weeks",0))
         result[name]={"status":state,"note":note,"missed_weeks":streak}
-    return {"schema":1,"run_date":run,"stages":result,"critical":any(v["missed_weeks"]>=2 for v in result.values()),"degraded":any(v["status"]!="ok" for v in result.values())}
+    return {"schema":1,"run_date":run,"stages":result,"critical":any(v["missed_weeks"]>=2 for v in result.values()),"degraded":any(v["status"]!="ok" for k,v in result.items() if k!="parser_quality")}
 
-def full_rows(raw,review,audited,allow,individual=None,numbering=None,novelty=None):
+def full_rows(raw,review,audited,allow,individual=None,numbering=None,novelty=None,notices=()):
     rows={}
     for e in raw.get("events",[]):
         try:
             if not allow(e["url"],e["institution"]): continue
-            rows[key(e)]={"date":e["date"],"institution":e["institution"],"title":e["title"],"url":e["url"],"status":"Candidato Python – non verificato","selected":"No","method":e.get("method",""),"evidence":e.get("evidence","")}
+            rows[key(e)]={"date":e["date"],"institution":e["institution"],"title":e["title"],"url":e["url"],"status":"Candidato Python – non verificato","selected":"No","relevance":"Non valutata","method":e.get("method",""),"evidence":e.get("evidence","")}
         except (KeyError,TypeError,ValueError): continue
     for e in (review or {}).get("events",[]):
         status=("Data provvisoria" if e["certainty"]=="tentative" else "Confermata nella revisione")
         if not audited: status+=" – audit indipendente assente"
         old=rows.get(key(e),{})
-        rows[key(e)]={"date":e["date"],"institution":e["institution"],"title":e["title"],"url":e["url"],"status":status,"selected":"No" if e.get("relevance")=="calendar_only" else "Sì","method":old.get("method","Revisione"),"evidence":e["evidence"]}
+        rows[key(e)]={"date":e["date"],"institution":e["institution"],"title":e["title"],"url":e["url"],"status":status,"selected":"No" if e.get("relevance")=="calendar_only" else "Sì","relevance":{"high":"Alta","medium":"Media","calendar_only":"Solo calendario"}.get(e.get("relevance"),"Non valutata"),"method":old.get("method","Revisione"),"evidence":e["evidence"]}
+    for notice in notices:
+        if notice["status"] not in ("cancelled","advanced","postponed"): continue
+        oldkey=key({"institution":notice["institution"],"title":notice["title"],"date":notice["previous_date"]})
+        if oldkey in rows:
+            rows[oldkey]["status"]="Cancellato" if notice["status"]=="cancelled" else "Data superata – "+notice["new_date"]
+            rows[oldkey]["selected"]="No"; rows[oldkey]["relevance"]="Solo riferimento"
     for row in rows.values():
-        if raw.get("mode")=="demo": continue
+        if raw.get("mode")=="demo" or row["status"]=="Cancellato" or row["status"].startswith("Data superata"): continue
         try:
             row.update(calendar_links(row,verified=audited and row["status"]=="Confermata nella revisione" and (novelty or {}).get(key(row))!="date_changed_unverified"))
             row["ics"]=(individual or {}).get(key(row),"")
@@ -59,10 +66,10 @@ def cell(v):
     return "'"+s if s.lstrip().startswith(("=","+","-","@")) or s.startswith(("\t","\r","\n")) else s
 
 def write_csv(path,rows):
-    fields=["calendar_number","digest_number","novelty","date","institution","title","url","status","selected","method","evidence","google","outlook","ics"]
+    fields=["calendar_number","digest_number","novelty","date","institution","title","url","status","selected","relevance","method","evidence","google","outlook","ics"]
     with path.open("w",encoding="utf-8-sig",newline="") as f:
         w=csv.writer(f,delimiter=";")
-        w.writerow(["N. calendario","N. digest","Novità nel digest","Data","Ente","Titolo","Fonte","Stato verifica","Nel digest","Metodo","Evidenza","Aggiungi a Google Calendar","Aggiungi a Outlook (web)","File ICS individuale (se disponibile)"])
+        w.writerow(["N. calendario","N. digest","Novità nel digest","Data","Ente","Titolo","Fonte","Stato verifica","Nel digest","Rilevanza","Metodo","Evidenza","Aggiungi a Google Calendar","Aggiungi a Outlook (web)","File ICS individuale (se disponibile)"])
         for e in rows: w.writerow([cell(e.get(k,"")) for k in fields])
 
 def health_html(health):

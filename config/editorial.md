@@ -1,6 +1,6 @@
 # Editorial policy
 
-The email is a compact agenda for an economist focused on labour-market and economic research, not a reproduction of institutional calendars. The CSV is the broad archive: preserve all dated candidates retrieved from official sources, including secondary subjects and independently discovered events that are not selected for the email.
+The email is a compact agenda for an economist focused on labour-market and economic research, not a reproduction of institutional calendars. The Excel calendar is the broad archive: preserve all dated candidates retrieved from official sources, including secondary subjects and independently discovered events that are not selected for the email.
 
 ## Core priorities
 - **Labour market (highest):** employment, unemployment, employment composition, hours, wages (nominal, real, contractual), labour costs, productivity, labour flows, job vacancies, matching/Beveridge curve, collective bargaining, labour policy, substantial institutional reports and meaningful international comparisons. Preserve novel analytical series even if infrequent.
@@ -12,7 +12,7 @@ The email is a compact agenda for an economist focused on labour-market and econ
 ## Three classifications
 - `high`: clearly important; core releases or substantial new evidence.
 - `medium`: genuinely useful complement; include only where it earns space, particularly in the imminent week or where analytically novel (e.g. Beveridge curve).
-- `calendar_only`: retain for reference, exclude from email and bulk ICS. Use this for dated discoveries not selected; if already in raw collection, no need to repeat them just to preserve them in CSV.
+- `calendar_only`: retain for reference, exclude from email and bulk ICS. Use this for dated discoveries not selected; if already in raw collection, no need to repeat them just to preserve them in Excel calendar.
 
 Do not classify a release high merely because it belongs to a relevant sector. For example, routine international tourism flows, preliminary structural business statistics, services production and services turnover at EU level are normally calendar-only; Italian combined industry/services turnover and accommodation nights may be useful. These examples calibrate judgement, not a whitelist or permanent blacklist.
 

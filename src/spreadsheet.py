@@ -3,12 +3,11 @@ import datetime as dt
 from openpyxl import Workbook
 from openpyxl.styles import Alignment,Font,PatternFill
 from openpyxl.utils import get_column_letter
-from src.digest import cell
 
 FIELDS=[
  ("calendar_number","N. calendario",13),("digest_number","N. email",11),("novelty","Novità",24),
  ("date","Data",14),("institution","Ente",24),("title","Titolo",64),("status","Stato verifica",44),
- ("selected","Nel digest",12),("url","Fonte ufficiale",22),("google","Google Calendar",20),
+ ("selected","Nel digest",12),("relevance","Rilevanza",18),("url","Fonte ufficiale",22),("google","Google Calendar",20),
  ("outlook","Outlook",16),("ics","ICS individuale",17),("method","Metodo",24),("evidence","Evidenza",70)
 ]
 LINKS={"url":"Apri fonte","google":"Aggiungi","outlook":"Aggiungi","ics":"Scarica .ics"}
@@ -52,6 +51,7 @@ def write_xlsx(path,rows,notices=(),metrics=None):
         vals=[n["institution"],n["title"],n["previous_date"],n.get("new_date","-"),labels[n["status"]],n["url"],n["evidence"]]
         for j,v in enumerate(vals,1):
             c=ws.cell(i,j); literal(c,v); c.font=Font(name="Arial",size=11); c.alignment=Alignment(vertical="center",wrap_text=True)
+            if j in (3,4) and v!="-": c.value=dt.date.fromisoformat(v); c.number_format="dd/mm/yyyy"
             if j==6 and v.startswith("https://"): c.value="Apri fonte"; c.hyperlink=v; c.font=Font(name="Arial",size=11,color="1463A3",underline="single")
         ws.row_dimensions[i].height=34
     decorate(ws,[23,64,17,17,30,20,76])

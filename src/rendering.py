@@ -44,7 +44,7 @@ def render(root,raw,review,health=None,audited=False,publish_links=True):
         uid=event_uid(e)
         (individual_dir/(uid+".ics")).write_bytes(ics_bytes([e],stamp))
         if publish_links: individual[key(e)]=individual_ics_url(raw["run_date"],uid)
-    rows=full_rows(raw,review,audited,lambda url,name: name in SOURCE_MAP and allowed_source(url,SOURCE_MAP[name],legacy_demo=raw["mode"]=="demo"),individual,numbering,novelty)
+    rows=full_rows(raw,review,audited,lambda url,name: name in SOURCE_MAP and allowed_source(url,SOURCE_MAP[name],legacy_demo=raw["mode"]=="demo"),individual,numbering,novelty,notices)
     title=f"Radar istituzionale | {start:%d/%m/%Y} – {start+dt.timedelta(days=29):%d/%m/%Y}"
     warning="DEMO — nessun evento reale." if raw["mode"]=="demo" else ("Nessuna selezione editoriale disponibile. Il calendario allegato contiene soltanto i candidati recuperati." if review is None else "Selezione verificata dall’audit indipendente, nei limiti indicati." if audited else "Selezione disponibile, ma audit indipendente assente: date non ricontrollate dal secondo agente.")
     if health and health["critical"]: title="[CRITICO] "+title

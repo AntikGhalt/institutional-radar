@@ -1,1 +1,1 @@
-Read AGENTS.md and agents/review.md. Perform the review, validate it and commit only the matching review JSON if authorized. Never send mail or modify production code.
+Read AGENTS.md and execute agents/review.md from trusted main. The review contract is authoritative for the current Sunday run. Do not modify production code or merge your PR.
