@@ -15,3 +15,6 @@ Public project. No personal data or credentials in commits, issues, generated fi
 Scheduled jobs require ENABLE_SCHEDULE=true. Delivery additionally requires ENABLE_EMAIL=true and a valid live review. Use repository secrets SMTP_USER, SMTP_PASSWORD, NOTIFY_TO, and optional variables SMTP_HOST (default smtp.gmail.com) and SMTP_PORT (default 465). The names align with sdmx-pipeline, but secrets must be set separately. Never place recipient or credentials in version control. Do not configure delivery until reviewed.
 
 See docs/architecture.md for the handoff and limitations.
+
+## Automatic review acceptance
+The data-only PR gate runs on trusted main and never checks out PR code. It accepts only a new weekly review JSON from an owner-authored same-repository claude/ branch; it validates the collection hash and schema, and rejects code or workflow changes. By default it only validates; set repository variable ENABLE_AUTO_ACCEPT=true after a successful live pilot to enable merging. This is structural validation, not independent factual verification. Keep ENABLE_EMAIL unset until the live output is audited. The first live pilot uses the next Sunday run ID and manual collection. Claude routine can stay unchanged; it reads the updated agent contract.

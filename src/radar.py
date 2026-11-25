@@ -24,6 +24,13 @@ def run_date():
 def allowed(url,domains):
     p=urlsplit(url); h=p.hostname or ""
     return p.scheme=="https" and not p.username and not p.password and p.port in (None,443) and any(h==d or h.endswith("."+d) for d in domains)
+def allowed_source(url,s,legacy_demo=False):
+    if not allowed(url,s["domains"]): return False
+    if legacy_demo: return True
+    p=urlsplit(url); h=p.hostname or ""
+    if s["name"]=="Eurostat": return h=="ec.europa.eu" and (p.path=="/eurostat" or p.path.startswith("/eurostat/"))
+    if s["name"]=="DG EMPL": return h=="employment-social-affairs.ec.europa.eu" or (h=="ec.europa.eu" and (p.path.startswith("/social/") or p.path=="/social"))
+    return True
 class Links(HTMLParser):
     def __init__(self): super().__init__(); self.href=None; self.parts=[]; self.links=[]
     def handle_starttag(self,tag,attrs):
@@ -37,12 +44,12 @@ def collect_one(s):
     result={"institution":s["name"],"entry_url":s["url"],"links":[]}
     try:
         with urlopen(Request(s["url"],headers={"User-Agent":"InstitutionalRadar/0.1 (research calendar pilot)"}),timeout=15) as r:
-            if not allowed(r.geturl(),s["domains"]): raise ValueError("Unexpected redirect domain")
+            if not allowed_source(r.geturl(),s): raise ValueError("Unexpected redirect domain")
             raw=r.read(2_000_000); base=r.geturl(); enc=r.headers.get_content_charset() or "utf-8"
         parser=Links(); parser.feed(raw.decode(enc,errors="replace")); seen=set()
         for href,title in parser.links:
             url=urljoin(base,href).split("#")[0]
-            if allowed(url,s["domains"]) and TERMS.search(title+" "+url) and url not in seen:
+            if allowed_source(url,s) and TERMS.search(title+" "+url) and url not in seen:
                 seen.add(url); result["links"].append({"title":title[:240],"url":url})
             if len(seen)>=35: break
         result["status"]="candidates_only" if seen else "no_candidates"
@@ -70,7 +77,7 @@ def validate_review(raw,review):
     for e in review["events"]:
         s=SOURCE_MAP[e["institution"]]
         if not all(isinstance(e[k],str) and e[k].strip() for k in ("title","why","evidence","url")): raise ValueError("Missing evidence")
-        if not allowed(e["url"],s["domains"]): raise ValueError("Invalid primary URL")
+        if not allowed_source(e["url"],s,legacy_demo=raw["mode"]=="demo"): raise ValueError("Invalid primary URL")
         if e["relevance"] not in ("high","medium") or e["certainty"] not in ("confirmed","tentative"): raise ValueError("Invalid classification")
         date=dt.date.fromisoformat(e["date"])
         if not start<=date<=end: raise ValueError("Outside horizon")

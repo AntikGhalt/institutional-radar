@@ -1,7 +1,7 @@
 [
   {
     "name": "ISTAT",
-    "url": "https://www.istat.it/",
+    "url": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/giornalisti/appuntamenti/calendario-delle-diffusioni-e-degli-eventi/",
     "domains": [
       "istat.it"
     ],
@@ -17,7 +17,7 @@
   },
   {
     "name": "INPS",
-    "url": "https://www.inps.it/",
+    "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
     "domains": [
       "inps.it"
     ],
@@ -25,7 +25,7 @@
   },
   {
     "name": "MLPS",
-    "url": "https://www.lavoro.gov.it/",
+    "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/Pagine/default",
     "domains": [
       "lavoro.gov.it"
     ],
@@ -33,7 +33,7 @@
   },
   {
     "name": "INAPP",
-    "url": "https://www.inapp.gov.it/",
+    "url": "https://www.inapp.gov.it/eventi",
     "domains": [
       "inapp.gov.it"
     ],
@@ -51,7 +51,7 @@
   },
   {
     "name": "INAIL",
-    "url": "https://www.inail.it/",
+    "url": "https://dati.inail.it/portale/it/gli-open-data-inail/calendario-pubblicazioni.html",
     "domains": [
       "inail.it"
     ],
@@ -75,7 +75,7 @@
   },
   {
     "name": "MEF",
-    "url": "https://www.mef.gov.it/",
+    "url": "https://finanze.gov.it/",
     "domains": [
       "mef.gov.it",
       "finanze.gov.it"
@@ -84,7 +84,7 @@
   },
   {
     "name": "OECD",
-    "url": "https://www.oecd.org/",
+    "url": "https://www.oecd.org/en/data/insights/statistical-releases/release-dates-for-oecd-statistics-news-releases.html",
     "domains": [
       "oecd.org"
     ],
@@ -100,7 +100,7 @@
   },
   {
     "name": "CNEL",
-    "url": "https://www.cnel.it/",
+    "url": "https://www.cnel.it/home/attivit%C3%A0-cnel",
     "domains": [
       "cnel.it"
     ],
