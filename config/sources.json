@@ -5,7 +5,10 @@
     "domains": [
       "istat.it"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Locate the current-year release-calendar PDF and official iCal feeds from the calendar page; check press notices and upcoming events separately."
+    ]
   },
   {
     "name": "Eurostat",
@@ -13,7 +16,10 @@
     "domains": [
       "ec.europa.eu"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Inspect the official calendar JSON endpoint /eurostat/o/calendars/eventsJson and its current request parameters; divide into weekly intervals when results may be capped. Also search Statistics Explained, news and release announcements."
+    ]
   },
   {
     "name": "INPS",
@@ -21,7 +27,10 @@
     "domains": [
       "inps.it"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Read the Observatory calendar table directly, including current month and next month. Search the newsroom for reports outside the calendar."
+    ]
   },
   {
     "name": "MLPS",
@@ -29,7 +38,10 @@
     "domains": [
       "lavoro.gov.it"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Locate the current-year SISCO diffusion calendar from the ministry statistics pages. For 2026: https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/calendario-diffusione-dati-sisco-2026"
+    ]
   },
   {
     "name": "INAPP",
@@ -37,7 +49,10 @@
     "domains": [
       "inapp.gov.it"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Search the official events list and individual event pages even when direct requests return 403. Use indexed official results as tentative evidence if no current primary text can be retrieved."
+    ]
   },
   {
     "name": "Unioncamere",
@@ -71,7 +86,10 @@
     "domains": [
       "bancaditalia.it"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Use agenda month/year filters anno_pubblicazione and mese_pubblicazione across the whole horizon."
+    ]
   },
   {
     "name": "MEF",
@@ -88,7 +106,10 @@
     "domains": [
       "oecd.org"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Check forthcoming titles, launch events and release-date calendars separately. Preserve explicit publication vs presentation distinctions; unresolved conflicts belong in notes."
+    ]
   },
   {
     "name": "World Bank",
@@ -104,7 +125,10 @@
     "domains": [
       "cnel.it"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Search the current newsroom and homepage separately from the activities page, including official dated announcements and upcoming report presentations."
+    ]
   },
   {
     "name": "ADAPT",
@@ -129,6 +153,9 @@
     "domains": [
       "ec.europa.eu"
     ],
-    "focus": "Institutional releases, labour and economic policy"
+    "focus": "Institutional releases, labour and economic policy",
+    "research_hints": [
+      "Search official news/events and publications separately; never report a blocked page as checked."
+    ]
   }
 ]
