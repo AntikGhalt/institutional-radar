@@ -18,3 +18,6 @@ See docs/architecture.md for the handoff and limitations.
 
 ## Automatic review acceptance
 The data-only PR gate runs on trusted main and never checks out PR code. It accepts only a new weekly review JSON from an owner-authored same-repository claude/ branch; it validates the collection hash and schema, and rejects code or workflow changes. By default it only validates; set repository variable ENABLE_AUTO_ACCEPT=true after a successful live pilot to enable merging. This is structural validation, not independent factual verification. Keep ENABLE_EMAIL unset until the live output is audited. The first live pilot uses the next Sunday run ID and manual collection. Claude routine can stay unchanged; it reads the updated agent contract.
+
+## Dedicated adapters
+ISTAT public iCal (and additional feed discovery), Eurostat iCal, INPS monthly HTML table, MLPS annual SISCO PDF (`pdftotext`), Banca d’Italia monthly agenda. `python -m src.parser_smoke` runs a non-mutating live probe, saved as an Actions artifact. The generic candidate links remain available if an adapter fails. Adapters emit leads, not approved dates. Existing snapshots are immutable; repeated collection of the same mode/run ID is a no-op. The first pilot snapshot predates these adapters.

@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
+from src.calendars import adapter
 
 ROOT=Path(__file__).resolve().parents[1]
 TZ=ZoneInfo("Europe/Rome")
@@ -40,7 +41,7 @@ class Links(HTMLParser):
     def handle_endtag(self,tag):
         if tag=="a" and self.href:
             self.links.append((self.href," ".join(" ".join(self.parts).split()))); self.href=None
-def collect_one(s):
+def collect_one(s, start=None, end=None):
     result={"institution":s["name"],"entry_url":s["url"],"links":[]}
     try:
         with urlopen(Request(s["url"],headers={"User-Agent":"InstitutionalRadar/0.1 (research calendar pilot)"}),timeout=15) as r:
@@ -54,12 +55,18 @@ def collect_one(s):
             if len(seen)>=35: break
         result["status"]="candidates_only" if seen else "no_candidates"
     except Exception as e: result.update(status="error",error=type(e).__name__)
+    if start is not None:
+        try:
+            result["dated_candidates"],result["calendar_parser"]=adapter(s,start,end)
+        except Exception as e:
+            result["dated_candidates"]=[]; result["calendar_parser"]={"status":"error","attempts":[{"error":type(e).__name__}]}
     return result
 def collect(date,demo=False):
     if demo: results=[{"institution":s["name"],"entry_url":s["url"],"links":[],"status":"demo_not_fetched"} for s in SOURCES]
     else:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex: results=list(ex.map(collect_one,SOURCES))
-    raw={"schema":1,"run_date":str(date),"mode":"demo" if demo else "live","created_at":dt.datetime.now(TZ).isoformat(),"sources":results,"events":[]}
+        start=date+dt.timedelta(days=1); end=start+dt.timedelta(days=29)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex: results=list(ex.map(lambda s:collect_one(s,start,end),SOURCES))
+    raw={"schema":1,"run_date":str(date),"mode":"demo" if demo else "live","created_at":dt.datetime.now(TZ).isoformat(),"sources":results,"events":[e for s in results for e in s.get("dated_candidates",[])]}
     p=ROOT/"data"/str(date)/"collection.json"
     if p.exists(): raise ValueError("Collection exists; do not overwrite")
     write(p,raw); return raw
@@ -141,7 +148,12 @@ def main():
     p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash"]); p.add_argument("--date",type=dt.date.fromisoformat,default=run_date()); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); a=p.parse_args()
     if a.date.weekday()!=6: p.error("Run date must be a Sunday")
     directory=ROOT/"data"/str(a.date)
-    if a.command=="collect": collect(a.date,a.demo); return
+    if a.command=="collect":
+        if (directory/"collection.json").exists():
+            existing=load(directory/"collection.json")
+            if existing["mode"] != ("demo" if a.demo else "live"): raise ValueError("Existing collection mode differs")
+            print("Existing immutable collection retained"); return
+        collect(a.date,a.demo); return
     raw=load(directory/"collection.json")
     if a.command=="hash": print(digest(raw)); return
     if a.command=="demo-review":
