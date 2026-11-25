@@ -8,7 +8,8 @@ import json
 import os
 import re
 import subprocess
-from src import radar
+from src.common import ROOT,load
+from src.validation import validate_collection,validate_review,strict_review
 
 def api(path,*args):
     p=subprocess.run(["gh","api",path,*args],capture_output=True,text=True,check=True,timeout=60)
@@ -26,33 +27,15 @@ def check_pr(pr,repo,owner,files):
     if d.weekday()!=6: raise ValueError("Invalid run date")
     return f["filename"],d,head["sha"]
 
-def strict_review(review):
-    if set(review)!={"schema","mode","run_date","collection_sha256","coverage","events"}: raise ValueError("Unexpected review fields")
-    if len(review["events"])>200 or len(review["coverage"])>100: raise ValueError("Too many rows")
-    for row,keys in [(c,{"institution","status","note"}) for c in review["coverage"]]+[(e,{"institution","title","date","url","relevance","certainty","why","evidence"}) for e in review["events"]]:
-        if set(row)!=keys or any(not isinstance(v,str) or len(v)>3000 for v in row.values()): raise ValueError("Unexpected row fields")
-    return review
-
 def main():
     repo=os.environ["GITHUB_REPOSITORY"]; owner=os.environ["GITHUB_REPOSITORY_OWNER"]; num=int(os.environ["PR_NUMBER"])
     endpoint=f"repos/{repo}/pulls/{num}"
     pr=api(endpoint); files=api(endpoint+"/files?per_page=2")
     path,date,sha=check_pr(pr,repo,owner,files)
-    raw=radar.load(radar.ROOT/"data"/str(date)/"collection.json")
-    if raw["mode"]=="live" and date!=radar.run_date(): raise ValueError("Stale or unexpected live run")
-    if (radar.ROOT/path).exists(): raise ValueError("Review already exists")
+    raw=validate_collection(load(ROOT/"data"/str(date)/"collection.json"),date)
+    if (ROOT/path).exists(): raise ValueError("Review already exists")
     data=api(f"repos/{repo}/contents/{path}?ref={sha}")
     if data["size"]>500000 or data["encoding"]!="base64": raise ValueError("Invalid review content")
-    review=strict_review(json.loads(base64.b64decode(data["content"])))
-    radar.validate_review(raw,review)
-    print("Review structurally validated; factual source claims still require pilot audit.")
-    if raw["mode"]=="live":
-        print("Live acceptance belongs to the independent auditor; never auto-merge before audit.")
-        return
-    if os.environ.get("DRY_RUN")=="true": return
-    current=api(f"repos/{repo}/branches/main")["commit"]["sha"]
-    if current!=os.environ["TRUSTED_MAIN_SHA"]: raise ValueError("Main changed during validation; retry")
-    merged=api(endpoint+"/merge","--method","PUT","-f",f"sha={sha}","-f","merge_method=squash","-f","commit_title=Accept validated institutional review")
-    if not merged.get("merged"): raise ValueError("Merge rejected")
-    print("Review merged.")
+    review=validate_review(raw,json.loads(base64.b64decode(data["content"])))
+    print(f"Validated review at {sha}: {len(review['events'])} events; no merge performed.")
 if __name__=="__main__": main()

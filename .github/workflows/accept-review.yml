@@ -1,4 +1,4 @@
-name: 3 - Validate and accept AI review
+name: 3 - Validate AI review
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review]
@@ -9,23 +9,16 @@ on:
         description: Review pull request number
         required: true
         type: number
-      dry_run:
-        description: Validate without merging
-        type: boolean
-        default: true
 permissions:
-  contents: write
-  pull-requests: write
-concurrency:
-  group: radar-data
-  cancel-in-progress: false
+  contents: read
+  pull-requests: read
 jobs:
-  accept:
+  validate:
     if: github.event_name == 'workflow_dispatch' && github.ref_name == 'main' || (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.user.login == github.repository_owner && startsWith(github.event.pull_request.head.ref, 'claude/'))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      # SECURITY: only trusted main; never checkout or run the PR branch.
+      # Never execute the pull request branch.
       - uses: actions/checkout@v4
         with:
           ref: main
@@ -33,11 +26,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate data-only PR and merge
+      - name: Validate data-only review
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
-          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || vars.ENABLE_AUTO_ACCEPT != 'true' }}
-        run: |
-          export TRUSTED_MAIN_SHA="$(git rev-parse HEAD)"
-          python -m src.accept_review
+        run: python -m src.accept_review
