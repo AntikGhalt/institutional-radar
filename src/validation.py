@@ -60,6 +60,6 @@ def validate_review(raw,review):
         change_keys.add(k)
         if c["kind"]=="cancelled" and k in seen: raise ValueError("Cancelled event still listed as current")
         if c["kind"]=="rescheduled":
-            if not start<=iso_day(c["new_date"])<=end: raise ValueError("New date outside horizon")
-            if key({"institution":c["institution"],"title":c["title"],"date":c["new_date"]}) not in seen: raise ValueError("Rescheduled event missing")
+            new=iso_day(c["new_date"])
+            if start<=new<=end and key({"institution":c["institution"],"title":c["title"],"date":c["new_date"]}) not in seen: raise ValueError("Rescheduled event missing")
     return review

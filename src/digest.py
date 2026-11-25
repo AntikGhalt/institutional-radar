@@ -42,7 +42,7 @@ def full_rows(raw,review,audited,allow,individual=None,numbering=None,novelty=No
     for row in rows.values():
         if raw.get("mode")=="demo": continue
         try:
-            row.update(calendar_links(row,verified=audited and row["status"]=="Confermata nella revisione"))
+            row.update(calendar_links(row,verified=audited and row["status"]=="Confermata nella revisione" and (novelty or {}).get(key(row))!="date_changed_unverified"))
             row["ics"]=(individual or {}).get(key(row),"")
         except (ValueError,KeyError,TypeError): pass
     ordered=sorted(rows.values(),key=lambda e:(e["date"],e["institution"],e["title"]))

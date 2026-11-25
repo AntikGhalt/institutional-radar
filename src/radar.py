@@ -1,5 +1,6 @@
 """CLI and orchestration; the data, rendering and delivery contracts live in dedicated modules."""
 import argparse, datetime as dt, os
+from pathlib import Path
 from src.common import ROOT,TZ,SOURCES,SOURCE_MAP,read,load,write,digest,run_date,scheduled_sunday,allowed,allowed_source
 from src.validation import validate_collection,validate_review
 from src.collection import collect as _collect,collect_one
@@ -62,7 +63,7 @@ def prepare(date,persist=False):
     return raw,review,health,audit_ok
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash","validate"]); p.add_argument("--date",type=dt.date.fromisoformat,default=(scheduled_sunday(dt.datetime.now(TZ).date()) if os.getenv("RADAR_SCHEDULED")=="true" else run_date())); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); p.add_argument("--reserve",action="store_true"); p.add_argument("--test-email",action="store_true"); p.add_argument("--review-file",type=__import__("pathlib").Path); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash","validate"]); p.add_argument("--date",type=dt.date.fromisoformat,default=(scheduled_sunday(dt.datetime.now(TZ).date()) if os.getenv("RADAR_SCHEDULED")=="true" else run_date())); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); p.add_argument("--reserve",action="store_true"); p.add_argument("--test-email",action="store_true"); p.add_argument("--review-file",type=Path); a=p.parse_args()
     if a.date.weekday()!=6: p.error("Run date must be a Sunday")
     directory=ROOT/"data"/str(a.date)
     if a.command=="collect":
@@ -86,8 +87,10 @@ def main():
         raw={"mode":"live","run_date":str(a.date)}
         if (directory/"collection.json").exists() and load(directory/"collection.json").get("mode")=="demo": raise ValueError("Demo never sent")
         send(raw,None,ROOT/"output"/str(a.date),""); return
+    if a.reserve and (directory/"delivery.json").exists() and load(directory/"delivery.json").get("status")=="sent":
+        print("Already delivered; no duplicate email."); return
     raw,review,health,audited=prepare(a.date,persist=not a.test_email and (a.reserve or os.getenv("RADAR_SCHEDULED")=="true"))
-    out,title=render(raw,review,health,audited,publish_links=not a.test_email); print(out)
+    out,title=render(raw,review,health,audited,publish_links=a.reserve); print(out)
     if a.test_email: send_test(raw,review,out,title)
     if a.reserve: send(raw,review,out,title,reserve_only=True)
 if __name__=="__main__": main()

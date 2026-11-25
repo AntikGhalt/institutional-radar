@@ -57,6 +57,7 @@ def compare(data_dir,run_date,events,review,audited):
         return stable_uid(old)
     for k in current.keys() & previous.keys(): uids[k]=prior_uid(k)
     notices=[]; moved=set(); explicit=set()
+    reviewed={key(e):e for e in (review or {}).get("events",[])}
     if audited and baseline:
         for c in (review or {}).get("changes",[]):
             oldkey=key({"institution":c["institution"],"title":c["title"],"date":c["previous_date"]})
@@ -65,17 +66,18 @@ def compare(data_dir,run_date,events,review,audited):
                 notices.append({**c,"status":"cancelled"}); explicit.add(oldkey)
             else:
                 newkey=key({"institution":c["institution"],"title":c["title"],"date":c["new_date"]})
-                if newkey not in current or current[newkey]["certainty"]!="confirmed": continue
+                if newkey in reviewed and reviewed[newkey]["certainty"]!="confirmed": continue
                 status="postponed" if c["new_date"]>c["previous_date"] else "advanced"
-                flags[newkey]=status; uids[newkey]=prior_uid(oldkey)
-                notices.append({**c,"status":status}); moved.add(newkey); explicit.add(oldkey)
+                if newkey in current:
+                    flags[newkey]=status; uids[newkey]=prior_uid(oldkey); moved.add(newkey)
+                notices.append({**c,"status":status}); explicit.add(oldkey)
     # Same-title differing dates alone are hints, never verified reschedules.
     # Only compare unique unmatched titles, and distinguish from new publications.
     if baseline:
         unmatched_old=defaultdict(list); unmatched_new=defaultdict(list)
         start=(dt.date.fromisoformat(run_date)+dt.timedelta(days=1)).isoformat()
         for k in previous:
-            if k not in current and k not in explicit and k[1]>=start: unmatched_old[(k[0],k[2])].append(k)
+            if k not in reviewed and k not in current and k not in explicit and k[1]>=start: unmatched_old[(k[0],k[2])].append(k)
         for k in current:
             if k not in previous and k not in moved: unmatched_new[(k[0],k[2])].append(k)
         for ident,ks in unmatched_new.items():

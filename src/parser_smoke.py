@@ -6,7 +6,7 @@ def main():
     end=start+dt.timedelta(days=29)
     sources=[s for s in radar.SOURCES if s["name"] in {"ISTAT","Eurostat","INPS","MLPS","Banca d’Italia"}]
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
-        result=list(ex.map(lambda s:adapter(s,start,end),sources))
+        result=list(ex.map(lambda s:adapter(s,start,end,sample_dir=radar.ROOT/"output"/"parser-fixtures"),sources))
     records=[{"institution":s["name"],"events":rows,"parser":info} for s,(rows,info) in zip(sources,result)]
     radar.write(radar.ROOT/"output"/"parser-smoke.json",records)
     for record in records:

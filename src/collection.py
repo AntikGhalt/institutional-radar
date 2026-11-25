@@ -29,7 +29,9 @@ def collect_one(s, start=None, end=None):
     except Exception as e: result.update(status="error",error=type(e).__name__)
     if start is not None:
         try:
-            result["dated_candidates"],result["calendar_parser"]=adapter(s,start,end)
+            dated,result["calendar_parser"]=adapter(s,start,end)
+            result["dated_candidates"]=[e for e in dated if e.get("source_status")!="cancelled"]
+            result["cancelled_candidates"]=[e for e in dated if e.get("source_status")=="cancelled"]
         except Exception as e:
             result["dated_candidates"]=[]; result["calendar_parser"]={"status":"error","attempts":[{"error":type(e).__name__}]}
     return result

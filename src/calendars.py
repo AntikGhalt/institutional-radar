@@ -89,7 +89,7 @@ def ics_date(key,value):
         stamp=stamp.replace(tzinfo=ZoneInfo(zone)).astimezone(ZoneInfo("Europe/Rome"))
     return stamp.date()
 
-def parse_ics(text,institution,source):
+def parse_ics(text,institution,source,include_cancelled=False):
     text=re.sub(r"\r?\n[ \t]","",text)
     if "BEGIN:VCALENDAR" not in text or "END:VCALENDAR" not in text: raise ValueError("Not an iCalendar response")
     events=[]; recognized=0
@@ -101,7 +101,7 @@ def parse_ics(text,institution,source):
         if not {"DTSTART","SUMMARY"}<=props.keys(): continue
         recognized+=1
         status=props.get("STATUS",("",""))[1].upper()
-        if status=="CANCELLED" or "RRULE" in props: continue
+        if (status=="CANCELLED" and not include_cancelled) or "RRULE" in props: continue
         day=ics_date(*props["DTSTART"]); title=unescape_ics(props["SUMMARY"][1])
         events.append(source_candidate(institution,title,day,source,"ical",f"DTSTART={props['DTSTART'][1]}; SUMMARY={title}",status.lower() or "unknown"))
     if not recognized: raise ValueError("No recognizable VEVENT")
@@ -156,7 +156,7 @@ def pdf_text(body):
         result=subprocess.run(["pdftotext","-layout",str(p),"-"],capture_output=True,timeout=25,check=True)
         return result.stdout.decode("utf-8",errors="replace")
 
-def adapter(source,start,end):
+def adapter(source,start,end,sample_dir=None):
     name=source["name"]; url=source["url"]; hosts=source["domains"]; rows=[]; notes=[]; successful=0
     def attempt(label,fn):
         nonlocal successful
@@ -164,13 +164,24 @@ def adapter(source,start,end):
             got=fn(); rows.extend(got); successful+=1; notes.append({"method":label,"status":"parsed","rows":len(got)})
         except Exception as e:
             notes.append({"method":label,"status":"error","error":type(e).__name__,"http_status":getattr(e,"code",None)})
+    def save_sample(label,text):
+        if sample_dir is not None and text:
+            sample_dir.mkdir(parents=True,exist_ok=True)
+            (sample_dir/label).write_text(text,encoding="utf-8")
+    def capture(label,fn):
+        if sample_dir is not None:
+            try: save_sample(label,fn())
+            except Exception: pass # diagnostics do not affect collection
     def html_at(u):
         data,final,enc=fetch(u,hosts); return data.decode(enc,errors="replace"),final
     if name=="ISTAT":
         def istat_feeds():
             # Officially linked Google calendar is a public feed, not account access.
             data,_,enc=fetch(ISTAT_ICS,["google.com"])
-            return parse_ics(data.decode(enc,errors="replace"),name,url)
+            text=data.decode(enc,errors="replace")
+            from src.fixtures import ical_excerpt
+            capture("istat.ics" if name=="ISTAT" else "eurostat.ics",lambda:ical_excerpt(text))
+            return parse_ics(text,name,url,include_cancelled=True)
         attempt("official_press_ical",istat_feeds)
         def discover():
             html,final=html_at(url); p=parse_html(html); feeds=set(); out=[]
@@ -189,19 +200,28 @@ def adapter(source,start,end):
         attempt("official_release_ical",euro)
     elif name=="INPS":
         def inps():
-            html,final=html_at(url); return inps_rows(html,final)
+            html,final=html_at(url)
+            from src.fixtures import table_excerpt
+            capture("inps.html",lambda:table_excerpt(html,final))
+            return inps_rows(html,final)
         attempt("observatory_table",inps)
     elif name=="MLPS":
         for year in sorted({start.year,end.year}):
             u=f"https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/calendario-diffusione-dati-sisco-{year}"
             def sisco(u=u):
-                data,final,_=fetch(u,hosts); return sisco_rows(pdf_text(data),final)
+                data,final,_=fetch(u,hosts); text=pdf_text(data)
+                from src.fixtures import sisco_excerpt
+                capture(f"sisco-{year}.txt",lambda:sisco_excerpt(text,final))
+                return sisco_rows(text,final)
             attempt("sisco_pdf_"+str(year),sisco)
     elif name=="Banca d’Italia":
         for year,month in sorted({(start+dt.timedelta(days=i)).timetuple()[:2] for i in range((end-start).days+1)}):
             u=url+"?"+urlencode({"anno_pubblicazione":year,"mese_pubblicazione":f"{month:02d}"})
             def bank(u=u,year=year,month=month):
-                html,final=html_at(u); return bank_rows(html,final,year,month)
+                html,final=html_at(u)
+                from src.fixtures import agenda_excerpt
+                capture(f"bank-{year}-{month:02d}.html",lambda:agenda_excerpt(html,final,year,month))
+                return bank_rows(html,final,year,month)
             attempt(f"monthly_agenda_{year}_{month:02d}",bank)
     else: return [],{"status":"not_configured","attempts":[]}
     selected=within(rows,start,end)

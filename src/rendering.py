@@ -4,7 +4,6 @@ from src.common import SOURCE_MAP,allowed_source,digest,write,repository
 from src.digest import full_rows,write_csv,health_html,key
 from src.calendar_links import calendar_links,individual_ics_url
 from src.history import compare,stable_uid
-from src.spreadsheet import write_xlsx
 def esc(x): return html.escape(str(x),quote=True)
 def ics_escape(x): return str(x).replace("\\","\\\\").replace("\n","\\n").replace(";","\\;").replace(",","\\,").replace("\r","")
 def fold(line):
@@ -28,6 +27,7 @@ def ics_bytes(events,stamp):
     return ("\r\n".join(map(fold,lines))+"\r\n").encode()
 
 def render(root,raw,review,health=None,audited=False,publish_links=True):
+    from src.spreadsheet import write_xlsx
     start=dt.date.fromisoformat(raw["run_date"])+dt.timedelta(days=1)
     events=sorted((e for e in (review or {}).get("events",[]) if e["relevance"]!="calendar_only"),key=lambda e:(e["date"],e["institution"],e["title"]))
     baseline,novelty,uids,notices=compare(root/"data",raw["run_date"],events,review,audited) if raw["mode"]=="live" else (None,{},{},[])
