@@ -1,0 +1,410 @@
+{
+  "schema": 1,
+  "mode": "live",
+  "run_date": "2026-11-29",
+  "collection_sha256": "2b8c916b6bf603a1e79e54a32e8f9b95aed6e483c1710ada9ae4f258f18fe719",
+  "coverage": [
+    {
+      "institution": "ISTAT",
+      "status": "checked",
+      "note": "Pagina calendario consultata (HTML statico, solo link). Usati il PDF ufficiale «Calendario dei comunicati stampa 2026» (aggiornato al 10/11/2026) e i 5 feed iCal ufficiali: comunicati stampa coerenti con il PDF; gli altri feed (note per la stampa, prodotti editoriali, banche dati, convegni) contengono date solo fino al 27/11/2026 perché aggiornati settimanalmente. Retribuzioni contrattuali III trim. già diffuse il 30/10/2026; il prossimo «Conto trimestrale AP, reddito e risparmio delle famiglie» non cade nell'orizzonte. Esclusi comunicati non pertinenti (commercio estero, permessi, costruzioni, prezzi alla produzione industriale di novembre del 22/12, popolazione residente del 17/12)."
+    },
+    {
+      "institution": "Eurostat",
+      "status": "checked",
+      "note": "Pagina del release calendar renderizzata via JavaScript: estratto l'endpoint JSON ufficiale /eurostat/o/calendars/eventsJson per 30/11–29/12/2026 (100 voci fino al 22/12, nessuna voce dal 23/12). Selezionate solo uscite su lavoro, prezzi, produttività, servizi e povertà; escluse ambiente, agricoltura, trasporti e sanità."
+    },
+    {
+      "institution": "INPS",
+      "status": "checked",
+      "note": "Calendario degli aggiornamenti 2026 degli Osservatori statistici (aggiornato al 17/11/2026) consultato direttamente con date puntuali per dicembre. Esclusa la voce del 23/12 (prestazioni a sostegno della famiglia) perché meno pertinente. Nessuna data per l'Osservatorio precariato mensile nell'orizzonte."
+    },
+    {
+      "institution": "MLPS",
+      "status": "partial",
+      "note": "Pagina Studi e statistiche consultata: pubblicati report periodici (es. premi di produttività al 16/11/2026) senza date future annunciate. Pagina Eventi e Fiere non raggiungibile (HTTP 404 sull'URL tentato). La nota trimestrale congiunta sul mercato del lavoro (11/12) è registrata sotto ISTAT. Nessun evento datato individuato."
+    },
+    {
+      "institution": "INAPP",
+      "status": "unavailable",
+      "note": "Pagina eventi inapp.gov.it restituisce HTTP 403 (protezione anti-bot) sia a curl sia al fetch: nessun aggiramento tentato. Ricerche web non hanno trovato eventi dicembre 2026 annunciati; nel dicembre 2025 il Gender Policy Report fu presentato il 17/12, ma una ricorrenza 2026 non è confermata e non viene inserita."
+    },
+    {
+      "institution": "Unioncamere",
+      "status": "partial",
+      "note": "Home Excelsior consultata: ultimo bollettino citato è quello di ottobre (trimestre ottobre–dicembre). Il bollettino mensile di dicembre è atteso indicativamente a inizio mese (nel 2025 uscì il 5/12), ma nessuna data ufficiale pubblicata: non inserito come evento."
+    },
+    {
+      "institution": "INAIL",
+      "status": "checked",
+      "note": "Calendario pubblicazioni open data consultato: solo periodicità indicative («Luglio / Dicembre» per i dati semestrali; «entro il mese successivo» per i mensili). Nessuna data puntuale: aggiornamento semestrale di dicembre atteso ma non datato, quindi non inserito."
+    },
+    {
+      "institution": "ILO",
+      "status": "unavailable",
+      "note": "Calendario ILOSTAT restituisce HTTP 403 (anche alla raccolta Python: HTTPError). Ricerche web: nessuna data di lancio trovata per un nuovo Global Wage Report (ultima edizione 28/11/2024); nessun evento inserito."
+    },
+    {
+      "institution": "Banca d’Italia",
+      "status": "checked",
+      "note": "Agenda ufficiale consultata con filtro dicembre 2026 (parametri anno/mese). Inserita solo «L'economia italiana in breve» (10/12); escluse statistiche monetarie, finanza pubblica, bilancia dei pagamenti, riunioni BCE (Consiglio direttivo 16–17/12) e iniziative divulgative, non centrate su lavoro e salari."
+    },
+    {
+      "institution": "MEF",
+      "status": "partial",
+      "note": "Home MEF/finanze consultata: agenda del Ministro con Eurogruppo (10/12) ed Ecofin (11/12), esclusi perché non centrati su lavoro e salari. Nessun calendario di pubblicazioni statistiche pertinenti individuato nell'orizzonte."
+    },
+    {
+      "institution": "OECD",
+      "status": "partial",
+      "note": "Calendario OCSE, pagina pubblicazioni future e media advisory restituiscono HTTP 403 (anche alla raccolta Python). Inserito come provvisorio l'aggiornamento della disoccupazione armonizzata del 10/12 sulla base dell'indice di ricerca della pagina ufficiale. Economic Outlook di dicembre 2026: fonti indicizzate discordanti (1/12 oppure 10–11/12), non inserito."
+    },
+    {
+      "institution": "World Bank",
+      "status": "partial",
+      "note": "Pagina eventi caricata ma con elenco generato via JavaScript: nessun evento estraibile. Nessun evento pertinente al lavoro italiano individuato con ricerche."
+    },
+    {
+      "institution": "CNEL",
+      "status": "partial",
+      "note": "Pagina attività consultata: solo eventi passati (novembre 2026). Il Rapporto sul mercato del lavoro e la contrattazione collettiva 2026 è già stato approvato il 22/04/2026. Un eventuale rapporto sull'attrattività per i giovani (presentato a inizio dicembre nel 2025) non ha data ufficiale 2026: non inserito."
+    },
+    {
+      "institution": "ADAPT",
+      "status": "checked",
+      "note": "Pagina eventi bollettinoadapt.it consultata: «Nessun evento in programma» per l'orizzonte."
+    },
+    {
+      "institution": "Fondazione Studi CdL",
+      "status": "partial",
+      "note": "Home consultata: notizie e rassegna stampa; Festival del Lavoro 2027 annunciato senza date nell'orizzonte. Nessuna pubblicazione della Fondazione Studi con data futura individuata."
+    },
+    {
+      "institution": "DG EMPL",
+      "status": "unavailable",
+      "note": "Sito employment-social-affairs.ec.europa.eu: pagine eventi in HTTP 403/404/429 e nessun candidato dalla raccolta Python. Nessun evento verificabile su fonte primaria; eventuali appuntamenti del Consiglio EPSCO di dicembre non sono su dominio DG EMPL e non sono stati inseriti."
+    }
+  ],
+  "events": [
+    {
+      "institution": "Eurostat",
+      "title": "Part-time and full-time employment (2025)",
+      "date": "2026-11-30",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Confronto europeo sulla diffusione del part-time, inclusa la componente involontaria.",
+      "evidence": "Articolo Statistics Explained. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Part-time and full-time employment (2025)», periodo di riferimento 2025, data 2026-11-30."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Prezzi al consumo (stima provvisoria) – novembre 2026",
+      "date": "2026-11-30",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Prima lettura dell'inflazione di novembre: determina la dinamica del potere d'acquisto e delle retribuzioni reali.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione NOVEMBRE 2026: «Prezzi al consumo – Novembre 2026 – Lunedì 30 – Ore 11». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Fiducia dei consumatori e delle imprese – novembre 2026",
+      "date": "2026-11-30",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Indicatori qualitativi sulle attese di occupazione e sul clima nei servizi di mercato.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione NOVEMBRE 2026: «Fiducia dei consumatori e delle imprese – Novembre 2026 – Lunedì 30 – Ore 10». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Flash estimate inflation euro area – novembre 2026",
+      "date": "2026-12-01",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Stima rapida dell'inflazione nell'area euro: confronto internazionale sul potere d'acquisto.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Flash estimate inflation euro area – novembre 2026», periodo di riferimento novembre 2026, data 2026-12-01."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Conti economici trimestrali – III trimestre 2026",
+      "date": "2026-12-01",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Stima completa del PIL con input di lavoro (ore lavorate, unità di lavoro) e redditi da lavoro dipendente: base per produttività e costo del lavoro.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Conti economici trimestrali – III Trimestre 2026 – Martedì 1 – Ore 10». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Prezzi alla produzione dei servizi – III trimestre 2026",
+      "date": "2026-12-01",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Dinamica dei prezzi nei servizi di mercato alle imprese.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Prezzi alla produzione dei servizi – III Trimestre 2026 – Martedì 1 – Ore 11». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Unemployment – ottobre 2026",
+      "date": "2026-12-02",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Tassi di disoccupazione mensili UE e area euro, confronto con l'Italia.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Unemployment – ottobre 2026», periodo di riferimento ottobre 2026, data 2026-12-02."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Occupati e disoccupati (stima provvisoria) – ottobre 2026",
+      "date": "2026-12-02",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Dati mensili su occupazione, disoccupazione e inattività.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Occupati e disoccupati – Ottobre 2026 – Mercoledì 2 – Ore 10». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "People with a disability at risk of poverty or social exclusion (2025)",
+      "date": "2026-12-03",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Indicatori di povertà ed esclusione sociale per persone con disabilità.",
+      "evidence": "News article. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «People with a disability at risk of poverty or social exclusion (2025)», periodo di riferimento 2025, data 2026-12-03."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Commercio al dettaglio – ottobre 2026",
+      "date": "2026-12-04",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Vendite al dettaglio in valore e volume: segnale sui consumi e sul potere d'acquisto delle famiglie.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Commercio al dettaglio – Ottobre 2026 – Venerdì 4 – Ore 11». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "GDP main aggregates and employment – Q3/2026",
+      "date": "2026-12-07",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Stima completa di PIL e occupazione nell'UE: confronto internazionale su crescita e lavoro.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «GDP main aggregates and employment – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-07."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Services production – settembre 2026",
+      "date": "2026-12-07",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Produzione nei servizi di mercato a livello europeo.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Services production – settembre 2026», periodo di riferimento settembre 2026, data 2026-12-07."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Labour productivity – Q3/2026",
+      "date": "2026-12-08",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Confronto europeo sulla produttività del lavoro.",
+      "evidence": "News article. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Labour productivity – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-08."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Subjective poverty (2025)",
+      "date": "2026-12-08",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Povertà percepita nei paesi UE.",
+      "evidence": "News article e Statistics Explained. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Subjective poverty (2025)», periodo di riferimento 2025, data 2026-12-08."
+    },
+    {
+      "institution": "Banca d’Italia",
+      "title": "L'economia italiana in breve – dicembre 2026",
+      "date": "2026-12-10",
+      "url": "https://www.bancaditalia.it/media/agenda/index.html?anno_pubblicazione=2026&mese_pubblicazione=12",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Sintesi mensile dei principali indicatori macroeconomici, inclusi lavoro e prezzi.",
+      "evidence": "Pubblicazione. Agenda ufficiale Banca d'Italia, filtro dicembre 2026: voce «10 Dicembre – Pubblicazioni – L'economia italiana in breve – Roma»."
+    },
+    {
+      "institution": "INPS",
+      "title": "Osservatorio sugli stranieri",
+      "date": "2026-12-10",
+      "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Lavoratori stranieri per tipologia contributiva e prestazioni.",
+      "evidence": "Pubblicazione statistica (non evento). Calendario degli aggiornamenti 2026 degli Osservatori statistici INPS (ultimo aggiornamento 17/11/2026), sezione DICEMBRE 2026: «Osservatorio sugli stranieri», periodo di riferimento 2016 - 2025, data di pubblicazione «Giovedì - 10»."
+    },
+    {
+      "institution": "OECD",
+      "title": "Harmonised unemployment rates – aggiornamento dicembre 2026",
+      "date": "2026-12-10",
+      "url": "https://www.oecd.org/en/data/insights/statistical-releases/2026/11/unemployement-rates-updated-november-2026.html",
+      "relevance": "high",
+      "certainty": "tentative",
+      "why": "Confronto internazionale dei tassi di disoccupazione armonizzati OCSE.",
+      "evidence": "Rilascio statistico. La data «Next release: 10 December 2026» risulta dalla pagina ufficiale OCSE dell'aggiornamento di novembre 2026, rilevata tramite indice di ricerca; la pagina e il calendario OCSE restituiscono HTTP 403 all'accesso diretto, quindi la data non è stata verificata direttamente sulla fonte primaria."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "EU labour market – Q3/2026",
+      "date": "2026-12-11",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Indicatori trimestrali del mercato del lavoro UE (Labour force survey).",
+      "evidence": "Data release, news article e Statistics Explained. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «EU labour market – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-11."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Labour market flow statistics in the EU – Q3/2026",
+      "date": "2026-12-11",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Flussi tra occupazione, disoccupazione e inattività nei paesi UE.",
+      "evidence": "Data release, news article e Statistics Explained. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Labour market flow statistics in the EU – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-11."
+    },
+    {
+      "institution": "INPS",
+      "title": "Osservatorio lavoratori pubblici",
+      "date": "2026-12-11",
+      "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Occupazione e retribuzioni nel pubblico impiego.",
+      "evidence": "Pubblicazione statistica (non evento). Calendario degli aggiornamenti 2026 degli Osservatori statistici INPS (ultimo aggiornamento 17/11/2026), sezione DICEMBRE 2026: «Osservatorio lavoratori pubblici», periodo di riferimento 2014 - 2025, data di pubblicazione «Venerdì - 11»."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Il mercato del lavoro – III trimestre 2026",
+      "date": "2026-12-11",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Nota trimestrale integrata ISTAT-MLPS-INPS-INAIL-ANPAL su occupazione, flussi, ore lavorate e costo del lavoro.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Il mercato del lavoro – III Trimestre 2026 – Venerdì 11 – Ore 11». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Produzione industriale – ottobre 2026",
+      "date": "2026-12-11",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Indicatore congiunturale dell'attività manifatturiera, rilevante per la domanda di lavoro.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Produzione industriale – Ottobre 2026 – Venerdì 11 – Ore 10». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "INPS",
+      "title": "Osservatorio Imprese",
+      "date": "2026-12-14",
+      "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Imprese con dipendenti e relativa occupazione.",
+      "evidence": "Pubblicazione statistica (non evento). Calendario degli aggiornamenti 2026 degli Osservatori statistici INPS (ultimo aggiornamento 17/11/2026), sezione DICEMBRE 2026: «Osservatorio Imprese», periodo di riferimento 2015 - 2025, data di pubblicazione «Lunedì - 14»."
+    },
+    {
+      "institution": "INPS",
+      "title": "Osservatorio Lavoratori dipendenti e indipendenti",
+      "date": "2026-12-15",
+      "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Numero di lavoratori e redditi/retribuzioni medie annue per tipologia.",
+      "evidence": "Pubblicazione statistica (non evento). Calendario degli aggiornamenti 2026 degli Osservatori statistici INPS (ultimo aggiornamento 17/11/2026), sezione DICEMBRE 2026: «Osservatorio Lavoratori dipendenti e indipendenti», periodo di riferimento 2014 - 2025, data di pubblicazione «Martedì - 15»."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Job vacancy – Q3/2026",
+      "date": "2026-12-16",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Tasso di posti vacanti: indicatore di tensione del mercato del lavoro.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Job vacancy – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-16."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Prezzi al consumo (dati definitivi) – novembre 2026",
+      "date": "2026-12-16",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Inflazione definitiva di novembre, anche per fasce di spesa: riferimento per potere d'acquisto e rinnovi contrattuali.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Prezzi al consumo – Novembre 2026 – Mercoledì 16 – Ore 10». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Inflation (HICP) – novembre 2026",
+      "date": "2026-12-17",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Inflazione armonizzata definitiva: confronto sul potere d'acquisto.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Inflation (HICP) – novembre 2026», periodo di riferimento novembre 2026, data 2026-12-17."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Labour cost index – Q3/2026",
+      "date": "2026-12-17",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Dinamica del costo orario del lavoro (salari e oneri) nei paesi UE.",
+      "evidence": "Euro indicator, data release. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Labour cost index – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-17."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Purchasing power parities results (2023-2025)",
+      "date": "2026-12-17",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Parità di potere d'acquisto: base per confronti internazionali di livelli di prezzo e reddito.",
+      "evidence": "Data release e news article. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Purchasing power parities results (2023-2025)», periodo di riferimento 2023-2025, data 2026-12-17."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Job vacancy and unemployment rates – Beveridge curve – Q3/2026",
+      "date": "2026-12-18",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Relazione tra posti vacanti e disoccupazione nei paesi UE.",
+      "evidence": "Articolo Statistics Explained. Calendario ufficiale delle diffusioni Eurostat (endpoint JSON del release calendar consultato il 25/11/2026): voce «Job vacancy and unemployment rates – Beveridge curve – Q3/2026», periodo di riferimento Q3/2026, data 2026-12-18."
+    },
+    {
+      "institution": "ISTAT",
+      "title": "Fatturato dell'industria e dei servizi – ottobre 2026",
+      "date": "2026-12-18",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf",
+      "relevance": "medium",
+      "certainty": "confirmed",
+      "why": "Andamento del fatturato nei servizi di mercato.",
+      "evidence": "Rilascio di comunicato stampa (non presentazione). Calendario ufficiale ISTAT dei comunicati stampa 2026 (PDF aggiornato al 10/11/2026), sezione DICEMBRE 2026: «Fatturato dell'industria e dei servizi – Ottobre 2026 – Venerdì 18 – Ore 10». Data confermata anche nel feed iCal ufficiale «Comunicati stampa in calendario» linkato dalla pagina Calendario delle diffusioni e degli eventi."
+    },
+    {
+      "institution": "INPS",
+      "title": "Osservatorio sul mercato del lavoro – assunzioni, trasformazioni e cessazioni",
+      "date": "2026-12-22",
+      "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Flussi di rapporti di lavoro nel settore privato per tipologia contrattuale (dati cartacei e navigabili).",
+      "evidence": "Pubblicazione statistica (non evento). Calendario degli aggiornamenti 2026 degli Osservatori statistici INPS (ultimo aggiornamento 17/11/2026), sezione DICEMBRE 2026: «Osservatorio sul mercato del lavoro – assunzioni, trasformazioni e cessazioni», periodo di riferimento 2025 – Settembre 2026 (dati cartacei); 2014 – Settembre 2026 (dati navigabili), data di pubblicazione «Martedì - 22»."
+    }
+  ]
+}
