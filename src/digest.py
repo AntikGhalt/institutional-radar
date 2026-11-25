@@ -27,7 +27,7 @@ def weekly_health(data,run,stages):
         result[name]={"status":state,"note":note,"missed_weeks":streak}
     return {"schema":1,"run_date":run,"stages":result,"critical":any(v["missed_weeks"]>=2 for v in result.values()),"degraded":any(v["status"]!="ok" for v in result.values())}
 
-def full_rows(raw,review,audited,allow,individual=None):
+def full_rows(raw,review,audited,allow,individual=None,numbering=None,novelty=None):
     rows={}
     for e in raw.get("events",[]):
         try:
@@ -45,7 +45,13 @@ def full_rows(raw,review,audited,allow,individual=None):
             row.update(calendar_links(row,verified=audited and row["status"]=="Confermata nella revisione"))
             row["ics"]=(individual or {}).get(key(row),"")
         except (ValueError,KeyError,TypeError): pass
-    return sorted(rows.values(),key=lambda e:(e["date"],e["institution"],e["title"]))
+    ordered=sorted(rows.values(),key=lambda e:(e["date"],e["institution"],e["title"]))
+    labels={"new":"Nuovo","already_reported":"Già segnalato","baseline_unavailable":"Non confrontabile"}
+    for i,row in enumerate(ordered,1):
+        row["calendar_number"]=i
+        row["digest_number"]=(numbering or {}).get(key(row),"")
+        row["novelty"]=labels.get((novelty or {}).get(key(row)),"") if row["selected"]=="Sì" else ""
+    return ordered
 
 def cell(v):
     s=str(v)
@@ -53,10 +59,10 @@ def cell(v):
     return "'"+s if s.lstrip().startswith(("=","+","-","@")) or s.startswith(("\t","\r","\n")) else s
 
 def write_csv(path,rows):
-    fields=["date","institution","title","url","status","selected","method","evidence","outlook","google","ics"]
+    fields=["calendar_number","digest_number","novelty","date","institution","title","url","status","selected","method","evidence","google","outlook","ics"]
     with path.open("w",encoding="utf-8-sig",newline="") as f:
         w=csv.writer(f,delimiter=";")
-        w.writerow(["Data","Ente","Titolo","Fonte","Stato verifica","Nel digest","Metodo","Evidenza","Aggiungi a Outlook (web)","Aggiungi a Google Calendar","File ICS individuale (se disponibile)"])
+        w.writerow(["N. calendario","N. digest","Novità nel digest","Data","Ente","Titolo","Fonte","Stato verifica","Nel digest","Metodo","Evidenza","Aggiungi a Google Calendar","Aggiungi a Outlook (web)","File ICS individuale (se disponibile)"])
         for e in rows: w.writerow([cell(e.get(k,"")) for k in fields])
 
 def health_html(health):

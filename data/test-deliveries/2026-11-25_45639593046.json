@@ -1,0 +1,32 @@
+{
+  "reason": "Manual SMTP test on 2026-11-25 used the future run ID 2026-12-06 before its collection existed. Archive the actual test delivery and health record separately so the future production run remains eligible; no mail is recalled.",
+  "run_id": "2026-12-06",
+  "workflow_run": 45639593046,
+  "delivery": {
+    "status": "sent",
+    "at": "2026-11-25T15:56:52.780299+01:00"
+  },
+  "health": {
+    "schema": 1,
+    "run_date": "2026-12-06",
+    "stages": {
+      "python": {
+        "status": "missing",
+        "note": "Nessuna raccolta disponibile.",
+        "missed_weeks": 1
+      },
+      "claude": {
+        "status": "missing",
+        "note": "Raccolta necessaria alla revisione assente o non valida.",
+        "missed_weeks": 1
+      },
+      "chatgpt": {
+        "status": "missing",
+        "note": "Raccolta necessaria all’audit assente o non valida.",
+        "missed_weeks": 1
+      }
+    },
+    "critical": false,
+    "degraded": true
+  }
+}

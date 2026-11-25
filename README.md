@@ -40,7 +40,7 @@ The collector retains dated candidates and per-source diagnostics. Candidates ar
 
 ## Output and operational health
 
-- **HTML digest:** selected releases with date, institution, relevance, concise explanation and official link.
+- **HTML digest:** numbered selected releases with date, institution, relevance, concise explanation and official link. New versus previously reported entries are labelled against the last delivered nonempty digest, using institution, date and normalized title.
 - **Full calendar CSV:** all dated candidates retrieved from structured sources, plus research results, including calendar-only discoveries. Distinguishes raw leads, tentative dates and reviewed dates; not a claim of complete coverage of every institution.
 - **ICS:** high-relevance, confirmed selected events only, after a valid independent audit. Empty calendars are not attached to email. Each audited, confirmed editorial event also has individual Outlook web / Google Calendar draft links and a single-event ICS download, published with delivery. The CSV includes calendar draft URLs, with unverified events explicitly marked in their draft titles. Calendar-only items never enter the email or bulk ICS.
 - **Operational checks:** collection, Claude handoff and ChatGPT audit; missing or unverifiable deliveries are counted across successive recorded weeks. A first missing stage produces a partial digest; two consecutive weeks without a verifiable handoff trigger a critical subject and header. The system does not infer subscription exhaustion from absent files.
@@ -52,7 +52,7 @@ The collector retains dated candidates and per-source diagnostics. Candidates ar
 .github/workflows/  CI, collection, structural PR validation, live probes, digest
 agents/             Review, independent audit, maintenance contracts
 config/             Sources and editorial policy
-data/YYYY-MM-DD/    Weekly collection, review, audit, health, delivery record
+data/YYYY-MM-DD/    Weekly collection, review, audit, health, delivery record and digest selection manifest
 src/                Collectors, adapters, validation, rendering, delivery
 tests/              Unit tests
 docs/               Architecture and operating notes
@@ -74,7 +74,7 @@ Use a Sunday run ID. Omit --demo for live collection; existing snapshots are imm
 
 ## Configuration and deployment
 
-Create repository Actions secrets SMTP_USER, SMTP_PASSWORD and NOTIFY_TO. Set repository variable ENABLE_SCHEDULE=true to enable collection and scheduled finalization. Set ENABLE_EMAIL=true to enable live SMTP delivery. SMTP_HOST and SMTP_PORT are optional (defaults smtp.gmail.com / 465, SSL). Configure the Claude routine against this repository and the ChatGPT audit against agents/audit.md. Neither agent sends email. Manual preview: run the finalization workflow with send=false.
+Create repository Actions secrets SMTP_USER, SMTP_PASSWORD and NOTIFY_TO. Set repository variable ENABLE_SCHEDULE=true to enable collection and scheduled finalization. Set ENABLE_EMAIL=true to enable live SMTP delivery. SMTP_HOST and SMTP_PORT are optional (defaults smtp.gmail.com / 465, SSL). Configure the Claude routine against this repository and the ChatGPT audit against agents/audit.md. Neither agent sends email. Manual preview: run the finalization workflow with send=false and test_email=false. To receive a labelled test email, use a previously reviewed live Sunday ID, send=false, test_email=true. Tests do not write production delivery or health records and omit unpublished single-file links. Production delivery is blocked for future Sunday IDs.
 
 ## Integrity and limitations
 

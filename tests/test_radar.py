@@ -57,4 +57,34 @@ class RadarTests(unittest.TestCase):
             r.write(Path(tmp)/"data"/self.raw["run_date"]/"delivery.json",{"status":"sent"})
             r.send(self.raw,None,Path(tmp),"",reserve_only=True)
             r.send(self.raw,None,Path(tmp),"")
+    def test_future_production_guard(self):
+        with self.assertRaises(ValueError): r.check_production_date(r.dt.date(2026,12,6),r.dt.date(2026,11,25))
+        r.check_production_date(r.dt.date(2026,12,6),r.dt.date(2026,12,6))
+    def test_manual_preview_does_not_persist_health(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)):
+            raw,review,health,audited=r.prepare(r.dt.date(2026,12,6))
+            self.assertTrue(health["degraded"])
+            self.assertFalse((Path(tmp)/"data"/"2026-12-06"/"health.json").exists())
+    def test_numbering_and_novelty_render(self):
+        self.raw["mode"]="live"; self.review["mode"]="live"; self.review["collection_sha256"]=r.digest(self.raw)
+        self.review["events"][0]["relevance"]="calendar_only"
+        with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)):
+            prior=Path(tmp)/"data"/"2026-11-22"
+            r.write(prior/"delivery.json",{"status":"sent"})
+            r.write(prior/"digest-events.json",{"run_date":"2026-11-22","events":[self.review["events"][1]]})
+            out,_=r.render(self.raw,self.review,audited=True,publish_links=False)
+            page=(out/"report.html").read_text()
+            self.assertIn("1. 2026-12-07",page); self.assertIn("2. 2026-12-14",page)
+            self.assertIn("[NUOVO]",page); self.assertIn("[Già segnalato]",page)
+            self.assertIn("1 nuovi",page)
+            self.assertLess(page.index(">Google Calendar</a>"),page.index(">Outlook</a>"))
+            self.assertNotIn("> .ics</a>",page)
+            self.assertEqual(len(r.load(out/"digest-events.json")["events"]),2)
+    def test_test_email_has_no_receipt(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)),patch.dict(r.os.environ,{"ENABLE_EMAIL":"true","SMTP_USER":"test@example.invalid","SMTP_PASSWORD":"fake","NOTIFY_TO":"test@example.invalid"}),patch.object(r,"smtp_deliver") as smtp:
+            self.raw["mode"]="live"; self.review["mode"]="live"; self.review["collection_sha256"]=r.digest(self.raw)
+            out,title=r.render(self.raw,self.review,audited=True,publish_links=False)
+            r.send_test(self.raw,self.review,out,title)
+            self.assertTrue(smtp.call_args.args[0]["Subject"].startswith("[TEST]"))
+            self.assertFalse((Path(tmp)/"data"/self.raw["run_date"]/"delivery.json").exists())
 if __name__=="__main__": unittest.main()

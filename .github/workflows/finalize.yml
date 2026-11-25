@@ -6,7 +6,11 @@ on:
         description: Sunday run ID (YYYY-MM-DD)
         type: string
       send:
-        description: Request live delivery
+        description: Request production delivery (not for future Sundays)
+        type: boolean
+        default: false
+      test_email:
+        description: Send a labelled test using an existing reviewed week; no production receipt
         type: boolean
         default: false
   schedule:
@@ -27,6 +31,9 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       RADAR_SCHEDULED: ${{ github.event_name == 'schedule' }}
     steps:
+      - name: Validate manual mode
+        if: github.event_name == 'workflow_dispatch' && inputs.send == true && inputs.test_email == true
+        run: exit 1
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -70,8 +77,10 @@ jobs:
           git config user.name 'institutional-radar[bot]'
           git config user.email 'institutional-radar[bot]@users.noreply.github.com'
           git add data/
-          git commit -m 'Reserve institutional digest delivery'
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m 'Reserve institutional digest delivery'
+            git push
+          fi
       - name: Deliver reserved digest
         if: vars.ENABLE_EMAIL == 'true' && (github.event_name == 'schedule' || inputs.send == true)
         env:
@@ -87,6 +96,20 @@ jobs:
           args=()
           if [[ -n "$RUN_DATE" ]]; then args+=(--date "$RUN_DATE"); fi
           python -m src.radar finalize "${args[@]}" --send
+      - name: Send labelled test (no production state)
+        if: github.event_name == 'workflow_dispatch' && inputs.test_email == true && vars.ENABLE_EMAIL == 'true'
+        env:
+          ENABLE_EMAIL: ${{ vars.ENABLE_EMAIL }}
+          RUN_DATE: ${{ inputs.date }}
+          SMTP_HOST: ${{ vars.SMTP_HOST }}
+          SMTP_PORT: ${{ vars.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_TO: ${{ secrets.NOTIFY_TO }}
+        run: |
+          args=()
+          if [[ -n "$RUN_DATE" ]]; then args+=(--date "$RUN_DATE"); fi
+          python -m src.radar finalize "${args[@]}" --test-email
       - name: Record delivery attempt
         if: always()
         run: |
