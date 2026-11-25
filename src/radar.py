@@ -8,6 +8,7 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 from src.calendars import adapter
 from src.audit import validate_audit
+from src.digest import weekly_health,full_rows,write_csv,health_html
 
 ROOT=Path(__file__).resolve().parents[1]
 TZ=ZoneInfo("Europe/Rome")
@@ -104,47 +105,59 @@ def fold(line):
         if len((buf+c).encode())>75: chunks.append(buf); buf=" "+c
         else: buf+=c
     return "\r\n".join(chunks+[buf])
-def render(raw,review):
+def render(raw,review,health=None,audited=False):
     start=dt.date.fromisoformat(raw["run_date"])+dt.timedelta(days=1)
     events=sorted(review["events"],key=lambda e:(e["date"],e["institution"])) if review else []
     title=f"Radar istituzionale | {start:%d/%m/%Y} – {start+dt.timedelta(days=29):%d/%m/%Y}"
-    warning="DEMO — nessun evento reale." if raw["mode"]=="demo" else ("Revisione assente: invio bloccato." if review is None else "Date riportate dalla revisione: validazione strutturale, non verifica fattuale indipendente.")
+    warning="DEMO — nessun evento reale." if raw["mode"]=="demo" else ("Nessuna selezione editoriale disponibile. Il calendario allegato contiene soltanto i candidati recuperati." if review is None else "Selezione verificata dall’audit indipendente, nei limiti indicati." if audited else "Selezione disponibile, ma audit indipendente assente: date non ricontrollate dal secondo agente.")
+    if health and health["critical"]: title="[CRITICO] "+title
+    elif health and health["degraded"]: title="[PARZIALE] "+title
     h=[f'<!doctype html><html lang="it"><meta charset="utf-8"><body style="font-family:Arial,sans-serif;max-width:780px;margin:auto"><h1>{esc(title)}</h1><p><strong>{esc(warning)}</strong></p>']
+    if health and health["critical"]: h.append("<p><strong>PROBLEMA CRITICO: almeno una fase è priva di una consegna verificata da due settimane consecutive.</strong></p>")
+    if health and health["degraded"]: h.append(health_html(health))
     for low,high,label in [(0,6,"Settimana in arrivo"),(7,20,"Due settimane successive"),(21,29,"Resto dei 30 giorni")]:
         h.append(f"<h2>{label}</h2>")
         group=[e for e in events if low<=(dt.date.fromisoformat(e["date"])-start).days<=high]
-        if not group: h.append("<p>Nessun appuntamento verificato in questa sezione.</p>")
+        if not group: h.append("<p>Nessun appuntamento selezionato in questa sezione.</p>")
         for e in group:
-            h.append(f'<p><strong>{esc(e["date"])} — {esc(e["institution"])} — {esc(e["title"])}</strong><br>{esc(e["why"])}<br>{esc(e["certainty"])} · {esc(e["relevance"])} · <a href="{esc(e["url"])}">Fonte ufficiale</a></p>')
+            h.append(f'<p><strong>{esc(e["date"])} — {esc(e["institution"])} — {esc(e["title"])}</strong><br>{esc(e["why"])}<br>{"Confermata nella revisione" if e["certainty"]=="confirmed" else "Provvisoria"} · {"Alta" if e["relevance"]=="high" else "Media"} · <a href="{esc(e["url"])}">Fonte ufficiale</a></p>')
+    if health and not health["degraded"]: h.append(health_html(health))
     h.append("<h2>Copertura e limiti</h2>")
     coverage={c["institution"]:c for c in review["coverage"]} if review else {}
     for s in raw["sources"]:
         c=coverage.get(s["institution"],{}); h.append(f'<p>{esc(s["institution"])}: Python {esc(s["status"])}; revisione {esc(c.get("status","assente"))}. {esc(c.get("note",s.get("error","")))}</p>')
-    h.append("</body></html>")
+    rows=full_rows(raw,review,audited,lambda url,name: name in SOURCE_MAP and allowed_source(url,SOURCE_MAP[name],legacy_demo=raw["mode"]=="demo"))
+    h.append(f"<p>Allegato CSV: {len(rows)} appuntamenti recuperati, compresi candidati non verificati. L’ICS contiene solo eventi selezionati di alta rilevanza con data confermata e audit valido.</p></body></html>")
     lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Institutional Radar//IT","CALSCALE:GREGORIAN"]
-    if raw["mode"]=="live":
+    if raw["mode"]=="live" and audited:
         for e in events:
             if e["certainty"]!="confirmed" or e["relevance"]!="high": continue
             d=dt.date.fromisoformat(e["date"]); uid=digest([e["institution"],e["title"]])[:32]+"@institutional-radar"
             lines+=["BEGIN:VEVENT","UID:"+uid,"DTSTAMP:"+dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ"),"DTSTART;VALUE=DATE:"+d.strftime("%Y%m%d"),"DTEND;VALUE=DATE:"+(d+dt.timedelta(days=1)).strftime("%Y%m%d"),"SUMMARY:"+ics_escape(e["institution"]+" — "+e["title"]),"DESCRIPTION:"+ics_escape(e["why"]+"\n"+e["url"]),"TRANSP:TRANSPARENT","END:VEVENT"]
     lines.append("END:VCALENDAR"); out=ROOT/"output"/raw["run_date"]; out.mkdir(parents=True,exist_ok=True)
-    (out/"report.html").write_text("\n".join(h),encoding="utf-8"); (out/"calendar.ics").write_bytes(("\r\n".join(map(fold,lines))+"\r\n").encode()); return out,title
+    (out/"report.html").write_text("\n".join(h),encoding="utf-8"); (out/"calendar.ics").write_bytes(("\r\n".join(map(fold,lines))+"\r\n").encode()); write_csv(out/"full-calendar.csv",rows); return out,title
 def send(raw,review,out,title,reserve_only=False):
-    if raw["mode"]!="live" or review is None: raise ValueError("Sending blocked: requires live validated review")
+    if raw["mode"]!="live": raise ValueError("Synthetic demo must never be sent")
     if os.getenv("ENABLE_EMAIL")!="true": raise ValueError("Sending disabled")
-    directory=ROOT/"data"/raw["run_date"]
-    if not (directory/"audit.json").is_file(): raise ValueError("Independent audit missing; delivery blocked")
-    validate_audit(directory,raw,review,load(directory/"audit.json"))
     receipt=ROOT/"data"/raw["run_date"]/"delivery.json"
     token=os.getenv("RADAR_DELIVERY_TOKEN","")
     if not token: raise ValueError("Delivery requires a workflow reservation token")
-    if reserve_only and receipt.exists(): raise ValueError("Already reserved or attempted; inspect receipt before retry")
-    if not reserve_only and (not receipt.exists() or load(receipt).get("status")!="reserved" or load(receipt).get("token")!=token): raise ValueError("Missing matching persisted reservation")
+    names=("report.html","calendar.ics","full-calendar.csv")
+    files={n:hashlib.sha256((out/n).read_bytes()).hexdigest() for n in names}
     env={k:os.environ.get(k,"") for k in ("SMTP_USER","SMTP_PASSWORD","NOTIFY_TO")}
     if not all(env.values()): raise ValueError("SMTP credentials or recipient not configured")
     if reserve_only:
-        write(receipt,{"status":"reserved","token":token,"at":dt.datetime.now(TZ).isoformat()}); return
-    msg=EmailMessage(); msg["Subject"]=title; msg["From"]=env["SMTP_USER"]; msg["To"]=env["NOTIFY_TO"]; msg.set_content("Agenda istituzionale: consultare la versione HTML."); msg.add_alternative(read(out/"report.html"),subtype="html"); msg.add_attachment((out/"calendar.ics").read_bytes(),maintype="text",subtype="calendar",filename="calendar.ics")
+        if receipt.exists(): raise ValueError("Already reserved or attempted; inspect receipt before retry")
+        write(receipt,{"status":"reserved","token":token,"at":dt.datetime.now(TZ).isoformat(),"files":files,"subject":title}); return
+    if not receipt.exists(): raise ValueError("Missing persisted reservation")
+    record=load(receipt)
+    if record.get("status")!="reserved" or record.get("token")!=token or record.get("files")!=files: raise ValueError("Missing matching persisted reservation")
+    msg=EmailMessage(); msg["Subject"]=record["subject"]; msg["From"]=env["SMTP_USER"]; msg["To"]=env["NOTIFY_TO"]
+    msg.set_content("Agenda istituzionale: consultare la versione HTML e gli allegati.")
+    msg.add_alternative(read(out/"report.html"),subtype="html")
+    msg.add_attachment((out/"full-calendar.csv").read_bytes(),maintype="text",subtype="csv",filename="calendario-completo.csv")
+    if b"BEGIN:VEVENT" in (out/"calendar.ics").read_bytes():
+        msg.add_attachment((out/"calendar.ics").read_bytes(),maintype="text",subtype="calendar",filename="appuntamenti-selezionati.ics")
     write(receipt,{"status":"attempting","at":dt.datetime.now(TZ).isoformat()})
     try:
         with smtplib.SMTP_SSL(os.getenv("SMTP_HOST") or "smtp.gmail.com",int(os.getenv("SMTP_PORT") or "465"),context=ssl.create_default_context(),timeout=30) as smtp:
@@ -153,8 +166,43 @@ def send(raw,review,out,title,reserve_only=False):
     except Exception:
         raise RuntimeError("SMTP attempt failed; inspect sender account before retry") from None
     write(receipt,{"status":"sent","at":dt.datetime.now(TZ).isoformat()})
+
+def prepare(date):
+    directory=ROOT/"data"/str(date)
+    try:
+        raw=load(directory/"collection.json")
+        if raw["run_date"]!=str(date) or raw["mode"] not in ("live","demo"): raise ValueError("Invalid collection")
+        python_state=("ok",f"{len(raw['sources'])} fonti registrate; {len(raw.get('events',[]))} candidati datati.")
+    except FileNotFoundError:
+        raw={"schema":1,"mode":"live","run_date":str(date),"sources":[],"events":[]}
+        python_state=("missing","Nessuna raccolta disponibile.")
+    except (ValueError,KeyError,TypeError,OSError):
+        raw={"schema":1,"mode":"live","run_date":str(date),"sources":[],"events":[]}
+        python_state=("invalid","Raccolta non leggibile o non valida.")
+    review=None; audit_ok=False
+    if python_state[0]=="ok":
+        try: review=validate_review(raw,load(directory/"review.json"))
+        except (FileNotFoundError,ValueError,KeyError,TypeError,OSError): pass
+    if raw["mode"]=="demo": return raw,review,None,False
+    if python_state[0]=="ok":
+        try:
+            audit=validate_audit(directory,raw,review,load(directory/"audit.json"))
+            audit_ok=True; audit_state=("ok",audit["limitations"])
+        except FileNotFoundError: audit_state=("missing","Audit indipendente non consegnato.")
+        except (ValueError,KeyError,TypeError,OSError): audit_state=("invalid","Audit non valido o non corrispondente alla revisione.")
+        from src.handoff import find_review
+        review,claude_status,claude_note=find_review(raw,validate_review,review)
+        claude_state=(claude_status,claude_note)
+    else:
+        claude_state=("missing","Raccolta necessaria alla revisione assente o non valida.")
+        audit_state=("missing","Raccolta necessaria all’audit assente o non valida.")
+    health=weekly_health(ROOT/"data",str(date),{"python":python_state,"claude":claude_state,"chatgpt":audit_state})
+    # A delivered or reserved run's recorded health must not be silently rewritten.
+    if not (directory/"delivery.json").exists(): write(directory/"health.json",health)
+    return raw,review,health,audit_ok
+
 def main():
-    p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash"]); p.add_argument("--date",type=dt.date.fromisoformat,default=run_date()); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); p.add_argument("--reserve",action="store_true"); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument("command",choices=["collect","demo-review","finalize","hash"]); p.add_argument("--date",type=dt.date.fromisoformat,default=(dt.datetime.now(TZ).date()-dt.timedelta(days=(dt.datetime.now(TZ).date().weekday()+1)%7) if os.getenv("RADAR_SCHEDULED")=="true" else run_date())); p.add_argument("--demo",action="store_true"); p.add_argument("--send",action="store_true"); p.add_argument("--reserve",action="store_true"); a=p.parse_args()
     if a.date.weekday()!=6: p.error("Run date must be a Sunday")
     directory=ROOT/"data"/str(a.date)
     if a.command=="collect":
@@ -163,13 +211,17 @@ def main():
             if existing["mode"] != ("demo" if a.demo else "live"): raise ValueError("Existing collection mode differs")
             print("Existing immutable collection retained"); return
         collect(a.date,a.demo); return
-    raw=load(directory/"collection.json")
-    if a.command=="hash": print(digest(raw)); return
+    if a.command=="hash": print(digest(load(directory/"collection.json"))); return
     if a.command=="demo-review":
+        raw=load(directory/"collection.json")
         if raw["mode"]!="demo": raise SystemExit("Demo only")
         write(directory/"review.json",make_demo_review(raw)); return
-    review=validate_review(raw,load(directory/"review.json")) if (directory/"review.json").exists() else None
-    out,title=render(raw,review); print(out)
     if a.send and a.reserve: p.error("Choose reserve or send, not both")
-    if a.send or a.reserve: send(raw,review,out,title,reserve_only=a.reserve)
+    if a.send:
+        raw={"mode":"live","run_date":str(a.date)}
+        if (directory/"collection.json").exists() and load(directory/"collection.json").get("mode")=="demo": raise ValueError("Demo never sent")
+        send(raw,None,ROOT/"output"/str(a.date),""); return
+    raw,review,health,audited=prepare(a.date)
+    out,title=render(raw,review,health,audited); print(out)
+    if a.reserve: send(raw,review,out,title,reserve_only=True)
 if __name__=="__main__": main()

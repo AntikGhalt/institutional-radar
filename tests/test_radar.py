@@ -36,6 +36,6 @@ class RadarTests(unittest.TestCase):
         self.raw["mode"]="live"; self.review["mode"]="live"; self.review["collection_sha256"]=r.digest(self.raw)
         self.review["events"][0]["title"]="<script>alert(1)</script>"
         with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)):
-            out,_=r.render(self.raw,r.validate_review(self.raw,self.review))
+            out,_=r.render(self.raw,r.validate_review(self.raw,self.review),audited=True)
             self.assertIn("BEGIN:VEVENT",(out/"calendar.ics").read_text()); self.assertNotIn("<script>",(out/"report.html").read_text())
 if __name__=="__main__": unittest.main()

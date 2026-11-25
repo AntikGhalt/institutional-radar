@@ -31,6 +31,7 @@ jobs:
         run: command -v pdftotext || (sudo apt-get update && sudo apt-get install -y poppler-utils)
       - name: Collect and commit
         env:
+          RADAR_SCHEDULED: ${{ github.event_name == 'schedule' }}
           DEMO: ${{ inputs.demo }}
           RUN_DATE: ${{ inputs.date }}
         run: |
