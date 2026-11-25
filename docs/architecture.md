@@ -1,0 +1,2 @@
+# Architecture
+GitHub collection → immutable weekly JSON → external AI review → validated report and ICS → optional SMTP. Review is bound to the collection via SHA-256. Fixed schedules are deadlines, not proof of completion. Missing/invalid review blocks delivery. Generic link discovery is not calendar extraction. External agent write access, live endpoints and SMTP require tests. Second alert email and cross-week deduplication are future work. Public artifacts and snapshots must contain public information only.

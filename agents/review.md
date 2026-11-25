@@ -1,0 +1,9 @@
+# Weekly review
+Read config/sources.json and data/<Sunday ISO date>/collection.json. Compute collection_sha256 via python -m src.radar hash --date YYYY-MM-DD. Never alter collection. If missing, stop and report.
+For demo mode, run python -m src.radar demo-review --date YYYY-MM-DD, then add one distinct synthetic event explicitly labeled NON REALE; do not claim real events or send email.
+For live mode, examine each institution's calendar, candidate URLs and independent web searches, including announcements, presentations and press notices beyond calendars. Prioritize days 1–7, then 8–21, then 22–30 starting the following Monday. Focus on wages, purchasing power, employment and flows, productivity, market services, collective bargaining, poverty, inequality and relevant international comparisons. Exclude unrelated conferences and legal notices. Confirm exact date against primary institutional source; explicitly provisional dates are tentative. Never invent dates; undated or recurring expectations belong in coverage notes. Record failures and alternative official sources. No bypass of access controls. Write in Italian.
+Save data/YYYY-MM-DD/review.json:
+```json
+{"schema":1,"mode":"live","run_date":"YYYY-MM-DD","collection_sha256":"<hash>","coverage":[{"institution":"ISTAT","status":"checked","note":"<coverage details>"}],"events":[{"institution":"ISTAT","title":"<title>","date":"YYYY-MM-DD","url":"<official HTTPS URL>","relevance":"high","certainty":"confirmed","why":"<Italian relevance>","evidence":"<specific date evidence>"}]}
+```
+Exactly one coverage row per configured institution, status checked/partial/unavailable. Relevance high/medium; certainty confirmed/tentative. Run finalize without --send to validate. Commit only review.json. If unable to push, open PR or report blocker. Public outputs must contain only public institutional information. Log parser repair suggestions separately.

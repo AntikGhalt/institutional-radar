@@ -1,0 +1,1 @@
+Read AGENTS.md and agents/review.md. Perform the review, validate it and commit only the matching review JSON if authorized. Never send mail or modify production code.

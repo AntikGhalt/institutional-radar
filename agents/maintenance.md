@@ -1,0 +1,2 @@
+# Maintenance
+Inspect collection failures, reproduce with bounded requests, prefer official RSS/ICS/JSON, add fixtures and tests. Respect access controls and rate limits. Prepare a separate PR; never modify delivery code or secrets during review. Do not auto-merge.

@@ -1,0 +1,134 @@
+[
+  {
+    "name": "ISTAT",
+    "url": "https://www.istat.it/",
+    "domains": [
+      "istat.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+    "domains": [
+      "ec.europa.eu"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "INPS",
+    "url": "https://www.inps.it/",
+    "domains": [
+      "inps.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "MLPS",
+    "url": "https://www.lavoro.gov.it/",
+    "domains": [
+      "lavoro.gov.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "INAPP",
+    "url": "https://www.inapp.gov.it/",
+    "domains": [
+      "inapp.gov.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "Unioncamere",
+    "url": "https://excelsior.unioncamere.net/",
+    "domains": [
+      "unioncamere.net",
+      "unioncamere.gov.it",
+      "unioncamere.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "INAIL",
+    "url": "https://www.inail.it/",
+    "domains": [
+      "inail.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "ILO",
+    "url": "https://ilostat.ilo.org/resources/calendar/",
+    "domains": [
+      "ilo.org"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "Banca d’Italia",
+    "url": "https://www.bancaditalia.it/media/agenda/index.html",
+    "domains": [
+      "bancaditalia.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "MEF",
+    "url": "https://www.mef.gov.it/",
+    "domains": [
+      "mef.gov.it",
+      "finanze.gov.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "OECD",
+    "url": "https://www.oecd.org/",
+    "domains": [
+      "oecd.org"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "World Bank",
+    "url": "https://www.worldbank.org/en/events/all",
+    "domains": [
+      "worldbank.org"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "CNEL",
+    "url": "https://www.cnel.it/",
+    "domains": [
+      "cnel.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "ADAPT",
+    "url": "https://www.adapt.it/",
+    "domains": [
+      "adapt.it",
+      "bollettinoadapt.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "Fondazione Studi CdL",
+    "url": "https://www.consulentidellavoro.it/",
+    "domains": [
+      "consulentidellavoro.it"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  },
+  {
+    "name": "DG EMPL",
+    "url": "https://employment-social-affairs.ec.europa.eu/",
+    "domains": [
+      "ec.europa.eu"
+    ],
+    "focus": "Institutional releases, labour and economic policy"
+  }
+]
