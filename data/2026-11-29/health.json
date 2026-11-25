@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "run_date": "2026-11-29",
+  "stages": {
+    "python": {
+      "status": "ok",
+      "note": "16 fonti registrate; 0 candidati datati.",
+      "missed_weeks": 0
+    },
+    "claude": {
+      "status": "ok",
+      "note": "PR Claude #2 integrata.",
+      "missed_weeks": 0
+    },
+    "chatgpt": {
+      "status": "ok",
+      "note": "La collezione immutabile iniziale precede i parser strutturati: non contiene eventi datati grezzi. L’audit ha consultato separatamente i risultati del test reale dei cinque parser. Copertura non esaustiva: accessi limitati a ILO, INAPP, OCSE, CNEL e DG EMPL e ricerca mirata, non integrale, delle altre fonti parziali. Il calendario INPS consultabile e quello indicizzato aggiornato al 17/11 discordano sulla voce Imprese: 14 dicembre mantenuto provvisorio ed escluso dall’ICS. Nessuna data certa per un nuovo indicatore europeo di povertà assoluta. Le date sono quelle annunciate il 25/11; possono cambiare. Nessuna email inviata.",
+      "missed_weeks": 0
+    }
+  },
+  "critical": false,
+  "degraded": false
+}
