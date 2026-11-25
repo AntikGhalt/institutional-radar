@@ -1,0 +1,1204 @@
+{
+  "schema": 1,
+  "run_date": "2026-11-29",
+  "mode": "live",
+  "created_at": "2026-11-25T13:11:15.706291+01:00",
+  "sources": [
+    {
+      "institution": "ISTAT",
+      "entry_url": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/giornalisti/appuntamenti/calendario-delle-diffusioni-e-degli-eventi/",
+      "links": [
+        {
+          "title": "Vai al menù della testata",
+          "url": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/giornalisti/appuntamenti/calendario-delle-diffusioni-e-degli-eventi/"
+        },
+        {
+          "title": "Eventi segnalati dalle società scientifiche",
+          "url": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/"
+        },
+        {
+          "title": "Statistica e Cittadinanza",
+          "url": "https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/studenti-e-docenti/statistica-e-cittadinanza/"
+        },
+        {
+          "title": "This Page",
+          "url": "https://www.istat.it/en/information-and-services-for-users/journalists/press-releases/press-calendar/"
+        },
+        {
+          "title": "Statistiche per temi",
+          "url": "https://www.istat.it/statistiche-per-temi/"
+        },
+        {
+          "title": "Popolazione",
+          "url": "https://www.istat.it/statistiche-per-temi/popolazione/"
+        },
+        {
+          "title": "Popolazione e Famiglie",
+          "url": "https://www.istat.it/statistiche-per-temi/popolazione/popolazione-e-famiglie/"
+        },
+        {
+          "title": "Condizioni economiche delle famiglie",
+          "url": "https://www.istat.it/statistiche-per-temi/popolazione/condizioni-economiche-delle-famiglie/"
+        },
+        {
+          "title": "Vita quotidiana e opinioni dei cittadini",
+          "url": "https://www.istat.it/statistiche-per-temi/popolazione/vita-quotidiana-e-opinioni-dei-cittadini/"
+        },
+        {
+          "title": "Società e Istituzioni",
+          "url": "https://www.istat.it/statistiche-per-temi/societa-e-istituzioni/"
+        },
+        {
+          "title": "Cultura, comunicazione e viaggi",
+          "url": "https://www.istat.it/statistiche-per-temi/societa-e-istituzioni/cultura-comunicazione-viaggi/"
+        },
+        {
+          "title": "Salute e Sanità",
+          "url": "https://www.istat.it/statistiche-per-temi/societa-e-istituzioni/salute-e-sanita/"
+        },
+        {
+          "title": "Assistenza e previdenza",
+          "url": "https://www.istat.it/statistiche-per-temi/societa-e-istituzioni/assistenza-e-previdenza/"
+        },
+        {
+          "title": "Giustizia e sicurezza",
+          "url": "https://www.istat.it/statistiche-per-temi/societa-e-istituzioni/giustizia-e-sicurezza/"
+        },
+        {
+          "title": "Pubbliche amministrazioni e istituzioni private",
+          "url": "https://www.istat.it/statistiche-per-temi/societa-e-istituzioni/pubbliche-amministrazioni-e-istituzioni-private/"
+        },
+        {
+          "title": "Istruzione e Lavoro",
+          "url": "https://www.istat.it/statistiche-per-temi/istruzione-e-lavoro/"
+        },
+        {
+          "title": "Istruzione e Formazione",
+          "url": "https://www.istat.it/statistiche-per-temi/istruzione-e-lavoro/istruzione-e-formazione/"
+        },
+        {
+          "title": "Lavoro e retribuzioni",
+          "url": "https://www.istat.it/statistiche-per-temi/istruzione-e-lavoro/lavoro-e-retribuzioni/"
+        },
+        {
+          "title": "Economia",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/"
+        },
+        {
+          "title": "Conti nazionali",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/conti-nazionali/"
+        },
+        {
+          "title": "Imprese",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/imprese/"
+        },
+        {
+          "title": "Industria e costruzioni",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/industria-e-costruzioni/"
+        },
+        {
+          "title": "Servizi",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/servizi/"
+        },
+        {
+          "title": "Agricoltura",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/agricoltura/"
+        },
+        {
+          "title": "Prezzi",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/prezzi/"
+        },
+        {
+          "title": "Commercio estero",
+          "url": "https://www.istat.it/statistiche-per-temi/economia/commercio-estero/"
+        },
+        {
+          "title": "Ambiente e Territorio",
+          "url": "https://www.istat.it/statistiche-per-temi/ambiente-e-territorio/"
+        },
+        {
+          "title": "Ambiente ed energia",
+          "url": "https://www.istat.it/statistiche-per-temi/ambiente-e-territorio/ambiente-ed-energia/"
+        },
+        {
+          "title": "Territorio e cartografia",
+          "url": "https://www.istat.it/statistiche-per-temi/ambiente-e-territorio/territorio-e-cartografia/"
+        },
+        {
+          "title": "Censimenti",
+          "url": "https://www.istat.it/statistiche-per-temi/censimenti/"
+        },
+        {
+          "title": "Agricoltura",
+          "url": "https://www.istat.it/statistiche-per-temi/censimenti/agricoltura/"
+        },
+        {
+          "title": "Popolazione e abitazioni",
+          "url": "https://www.istat.it/statistiche-per-temi/censimenti/popolazione-e-abitazioni/"
+        },
+        {
+          "title": "Imprese",
+          "url": "https://www.istat.it/statistiche-per-temi/censimenti/imprese/"
+        },
+        {
+          "title": "Istituzioni pubbliche",
+          "url": "https://www.istat.it/statistiche-per-temi/censimenti/istituzioni-pubbliche/"
+        },
+        {
+          "title": "Istituzioni non profit",
+          "url": "https://www.istat.it/statistiche-per-temi/censimenti/istituzioni-non-profit/"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "Eurostat",
+      "entry_url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "links": [
+        {
+          "title": "Skip to Main Content",
+          "url": "https://ec.europa.eu/eurostat/news/release-calendar"
+        },
+        {
+          "title": "Statistical themes",
+          "url": "https://ec.europa.eu/eurostat/data/statistical-themes"
+        },
+        {
+          "title": "Statistics under development",
+          "url": "https://ec.europa.eu/eurostat/web/statistics-under-development/overview"
+        },
+        {
+          "title": "European statistics learning hub",
+          "url": "https://ec.europa.eu/eurostat/web/european-statistics-learning-hub/overview"
+        },
+        {
+          "title": "News",
+          "url": "https://ec.europa.eu/eurostat/news"
+        },
+        {
+          "title": "News articles",
+          "url": "https://ec.europa.eu/eurostat/news/news-articles"
+        },
+        {
+          "title": "Euro indicators",
+          "url": "https://ec.europa.eu/eurostat/news/euro-indicators"
+        },
+        {
+          "title": "Podcasts",
+          "url": "https://ec.europa.eu/eurostat/news/podcasts"
+        },
+        {
+          "title": "Events and webinars",
+          "url": "https://ec.europa.eu/eurostat/news/events-webinars"
+        },
+        {
+          "title": "Publications",
+          "url": "https://ec.europa.eu/eurostat/publications"
+        },
+        {
+          "title": "Flagship publications",
+          "url": "https://ec.europa.eu/eurostat/publications/flagship-publications"
+        },
+        {
+          "title": "Interactive publications",
+          "url": "https://ec.europa.eu/eurostat/publications/interactive-publications"
+        },
+        {
+          "title": "Key figures",
+          "url": "https://ec.europa.eu/eurostat/publications/key-figures"
+        },
+        {
+          "title": "Online reads",
+          "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Online_publications"
+        },
+        {
+          "title": "Manuals and guidelines",
+          "url": "https://ec.europa.eu/eurostat/publications/manuals-and-guidelines"
+        },
+        {
+          "title": "Statistical working papers",
+          "url": "https://ec.europa.eu/eurostat/publications/statistical-working-papers"
+        },
+        {
+          "title": "Statistical reports",
+          "url": "https://ec.europa.eu/eurostat/publications/statistical-reports"
+        },
+        {
+          "title": "Leaflets",
+          "url": "https://ec.europa.eu/eurostat/publications/leaflets"
+        },
+        {
+          "title": "Statistics Explained",
+          "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Main_Page"
+        },
+        {
+          "title": "Release calendar",
+          "url": "https://ec.europa.eu/eurostat/publications/link-to-release-calendar"
+        },
+        {
+          "title": "Producing statistics",
+          "url": "https://ec.europa.eu/eurostat/about-us/producing-statistics"
+        },
+        {
+          "title": "Communicating and disseminating statistics",
+          "url": "https://ec.europa.eu/eurostat/about-us/communicating-disseminating-statistics"
+        },
+        {
+          "title": "Innovating statistics",
+          "url": "https://ec.europa.eu/eurostat/about-us/innovating-statistics"
+        },
+        {
+          "title": "European Statistical System",
+          "url": "https://ec.europa.eu/eurostat/about-us/european-statistical-system"
+        },
+        {
+          "title": "Events and webinars",
+          "url": "https://ec.europa.eu/eurostat/about-us/link-to-events"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "INPS",
+      "entry_url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html",
+      "links": [
+        {
+          "title": "Vai al menu principale",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/osservatori-statistici-e-altre-statistiche/calendario-osservatori-statistici.html"
+        },
+        {
+          "title": "Contratti e rapporti di lavoro",
+          "url": "https://www.inps.it/it/it/lavoro/contratti-rapporti-lavoro.html"
+        },
+        {
+          "title": "Contributi figurativi/valorizzazione lavoro e studio",
+          "url": "https://www.inps.it/it/it/lavoro/contributi-figurativi-valorizzazione.html"
+        },
+        {
+          "title": "Studio e formazione",
+          "url": "https://www.inps.it/it/it/sostegni-sussidi-indennita/studio-e-formazione.html"
+        },
+        {
+          "title": "Eventi Straordinari",
+          "url": "https://www.inps.it/it/it/imprese-e-liberi-professionisti/eventi-straordinari.html"
+        },
+        {
+          "title": "Eventi e pubblicazioni del CIV",
+          "url": "https://www.inps.it/it/it/l-istituto/organi-istituzionali/consiglio-di-indirizzo-e-vigilanza--civ/eventi-e-pubblicazioni-del-civ.html"
+        },
+        {
+          "title": "Direzione Centrale Studi e Ricerche",
+          "url": "https://www.inps.it/it/it/l-istituto/struttura-organizzativa/direzioni-centrali/direzione-centrale-studi-e-ricerche.html"
+        },
+        {
+          "title": "Coordinamento generale Statistico attuariale",
+          "url": "https://www.inps.it/it/it/l-istituto/struttura-organizzativa/coordinamenti-professionali/coordinamento-generale-statistico-attuariale.html"
+        },
+        {
+          "title": "Pubblicazioni CUG",
+          "url": "https://www.inps.it/it/it/l-istituto/comitato-unico-di-garanzia/pubblicazioni-cug.html"
+        },
+        {
+          "title": "Comunicati Stampa",
+          "url": "https://www.inps.it/it/it/inps-comunica/ufficio-stampa/comunicati-stampa.html"
+        },
+        {
+          "title": "Notizie",
+          "url": "https://www.inps.it/it/it/inps-comunica/notizie.html"
+        },
+        {
+          "title": "Iscrizione Newsletter",
+          "url": "https://www.inps.it/it/it/inps-comunica/atti/iscrizione-newsletter.html"
+        },
+        {
+          "title": "Eventi",
+          "url": "https://www.inps.it/it/it/inps-comunica/eventi-e-convegni.html"
+        },
+        {
+          "title": "Rapporto annuale: tutte le tappe",
+          "url": "https://www.inps.it/it/it/inps-comunica/xxiii-rapporto-annuale--tutte-le-tappe.html"
+        },
+        {
+          "title": "Pubblicazioni",
+          "url": "https://www.inps.it/it/it/inps-comunica/patrimonio-artistico/pubblicazioni.html"
+        },
+        {
+          "title": "Esplora Pubblicazioni",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni.html"
+        },
+        {
+          "title": "“del FUTURO”: la rivista internazionale di INPS",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/-del-futuro---la-rivista-internazionale-di-inps.html"
+        },
+        {
+          "title": "WorkInps papers",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/workinps-papers.html"
+        },
+        {
+          "title": "Rivista di informazione previdenziale",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/rivista-di-informazione-previdenziale.html"
+        },
+        {
+          "title": "Pubblicazioni patrimonio artistico",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/pubblicazioni-patrimonio-artistico.html"
+        },
+        {
+          "title": "Rapporto WorldWideInps",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/rapporto-worldwideinps.html"
+        },
+        {
+          "title": "Esplora Rassegna di Medicina Legale Previdenziale e Assistenziale",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/rassegna-di-medicina-legale-previdenziale-e-assistenziale.html"
+        },
+        {
+          "title": "Numeri della rivista “Rassegna di Medicina Legale Previdenziale e Assistenziale\"",
+          "url": "https://www.inps.it/it/it/inps-comunica/pubblicazioni/rassegna-di-medicina-legale-previdenziale-e-assistenziale/numeri-della-rivista--rassegna-di-medicina-legale-previdenziale-.html"
+        },
+        {
+          "title": "Esplora Bilanci preventivi",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi.html"
+        },
+        {
+          "title": "Bilanci preventivi 2026",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2026.html"
+        },
+        {
+          "title": "Bilanci preventivi 2025",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2025.html"
+        },
+        {
+          "title": "Bilanci preventivi 2024",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2024.html"
+        },
+        {
+          "title": "Bilanci preventivi 2023",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2023.html"
+        },
+        {
+          "title": "Bilanci preventivi 2022",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2022.html"
+        },
+        {
+          "title": "Bilanci preventivi 2021",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2021.html"
+        },
+        {
+          "title": "Bilanci preventivi 2020",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2020.html"
+        },
+        {
+          "title": "Bilanci preventivi 2019",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2019.html"
+        },
+        {
+          "title": "Bilanci preventivi 2018",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2018.html"
+        },
+        {
+          "title": "Bilanci preventivi 2017",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2017.html"
+        },
+        {
+          "title": "Bilanci preventivi 2016",
+          "url": "https://www.inps.it/it/it/dati-e-bilanci/bilanci--rendiconti-e-flussi-finanziari/bilanci-preventivi/2016.html"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "MLPS",
+      "entry_url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/Pagine/default",
+      "links": [
+        {
+          "title": "Salta al contenuto principale",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/Pagine/default"
+        },
+        {
+          "title": "Comunicati",
+          "url": "https://www.lavoro.gov.it/stampa-e-media/Comunicati/Pagine/Comunicati"
+        },
+        {
+          "title": "Eventi e Fiere",
+          "url": "https://www.lavoro.gov.it/stampa-e-media/Eventi-e-Fiere/Pagine/notizie"
+        },
+        {
+          "title": "Rapporti di lavoro e relazioni industriali",
+          "url": "https://www.lavoro.gov.it/temi-e-priorita/rapporti-di-lavoro-e-relazioni-industriali/Pagine/default"
+        },
+        {
+          "title": "Studi rilevanti",
+          "url": "https://www.lavoro.gov.it/osservatorio-adozione-sistemi-intelligenza-artificiale/pagine/studi-rilevanti"
+        },
+        {
+          "title": "Rapporto periodico personale maschile e femminile",
+          "url": "https://www.lavoro.gov.it/strumenti-e-servizi/rapporto-periodico-situazione-personale/Pagine/default"
+        },
+        {
+          "title": "Calendario di diffusione dati di fonte SISCO",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/calendario-diffusione-dati-sisco-2026"
+        },
+        {
+          "title": "Report sui premi di produttività al 16 novembre 2026",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-16-novembre-2026"
+        },
+        {
+          "title": "26-10-15_Monitoraggio_deposito_contratti_.pdf",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/26-10-15_monitoraggio_deposito_contratti_.pdf"
+        },
+        {
+          "title": "Report sui premi di produttività al 15 settembre 2026",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-15-settembre-2026"
+        },
+        {
+          "title": "Report sui premi di produttività al 15 luglio 2026",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-15-luglio-2026"
+        },
+        {
+          "title": "XVI Rapporto Gli stranieri nel mercato del lavoro in Italia 2026 - rev",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/xvi-rapporto-mdl-stranieri-2026-rev"
+        },
+        {
+          "title": "Sintesi XVI Rapporto Gli stranieri nel mercato del lavoro in Italia 2026 - rev",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/sintesi-xvi-rapporto-mdl-stranieri-2026-rev"
+        },
+        {
+          "title": "Report sui premi di produttività al 15 giugno 2026",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-15-giugno-2026"
+        },
+        {
+          "title": "Nota CO IV trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/nota-co-iv-trimestre-2025"
+        },
+        {
+          "title": "Sintesi nota CO IV trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/sintesi-nota-co-iv-trimestre-2025"
+        },
+        {
+          "title": "Allegato IV trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/allegato-iv-trimestre-2025"
+        },
+        {
+          "title": "Report sui premi di produttivita al 15 maggio 2026.pdf",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-15-maggio-2026.pdf"
+        },
+        {
+          "title": "Report sui premi di produttivita al 15 aprile 2026.pdf",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-15-aprile-2026.pdf"
+        },
+        {
+          "title": "Rapporto ISEE 2024",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/rapporto-isee-2024"
+        },
+        {
+          "title": "Executive Summary Rapporto ISEE 2024",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/executive-summary-rapporto-isee-2024"
+        },
+        {
+          "title": "Appendice Territoriale Rapporto ISEE 2024 - versione PDF",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/appendice-territoriale-rapporto-isee-2024-versione-pdf"
+        },
+        {
+          "title": "Appendice Territoriale Rapporto ISEE 2024 - versione Excel",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/appendice-territoriale-rapporto-isee-2024-versione-excel"
+        },
+        {
+          "title": "Report sui Premi di Produttività al 16 marzo 2026",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-16-marzo-2026"
+        },
+        {
+          "title": "La presenza dei migranti nelle aree metropolitane, anno 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/la-presenza-dei-migranti-nelle-aree-metropolitane-anno-2025"
+        },
+        {
+          "title": "Nota CO III trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/nota-co-iii-trimestre-2025"
+        },
+        {
+          "title": "Sintesi nota CO III trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/sintesi-nota-co-iii-trimestre-2025"
+        },
+        {
+          "title": "Allegato III trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/allegato-iii-trimestre-2025"
+        },
+        {
+          "title": "Report sui Premi di Produttività al 16 febbraio 2026",
+          "url": "https://www.lavoro.gov.it/strumenti-e-servizi/modulistica/report-sui-premi-di-produttivita-al-16-febbraio-2026"
+        },
+        {
+          "title": "Rapporto semestrale MSNA aggiornato al 31 dicembre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/rapporto-di-approfondimento-semestrale-sulla-presenza-dei-msna-31122025"
+        },
+        {
+          "title": "Report semestrale MSNA - sintesi in inglese aggiornata al dicembre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-semestrale-msna-sintesi-inglese-31122025"
+        },
+        {
+          "title": "Nota CO II trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/nota-co-ii-trimestre-2025"
+        },
+        {
+          "title": "Sintesi nota CO II trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/sintesi-nota-co-ii-trimestre-2025"
+        },
+        {
+          "title": "Allegato II trimestre 2025",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/allegato-ii-trimestre-2025"
+        },
+        {
+          "title": "Report sui premi di produttività al 16 gennaio 2026",
+          "url": "https://www.lavoro.gov.it/documenti-e-norme/studi-e-statistiche/report-sui-premi-di-produttivita-al-16-gennaio-2026"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "INAPP",
+      "entry_url": "https://www.inapp.gov.it/eventi",
+      "links": [
+        {
+          "title": "Salta al contenuto",
+          "url": "https://www.inapp.gov.it/eventi"
+        },
+        {
+          "title": "EN",
+          "url": "https://www.inapp.gov.it/en/inapp-events"
+        },
+        {
+          "title": "Pubblicazioni",
+          "url": "https://www.inapp.gov.it/pubblicazioni"
+        },
+        {
+          "title": "Notizie",
+          "url": "https://www.inapp.gov.it/comunicazione/notizie"
+        },
+        {
+          "title": "Newsletter",
+          "url": "https://www.inapp.gov.it/comunicazione/newsletter"
+        },
+        {
+          "title": "eventi esterni",
+          "url": "https://www.inapp.gov.it/eventi-esterni-partecipazione-inapp"
+        },
+        {
+          "title": "Consulta l'archivio",
+          "url": "https://www.inapp.gov.it/archivio-eventi"
+        },
+        {
+          "title": "Vai al calendario",
+          "url": "https://www.inapp.gov.it/calendario"
+        },
+        {
+          "title": "15 Dic 2026 Gender Policy Report 2026 Auditorium Inapp - Roma 10:00 - 13:00 In presenza e online",
+          "url": "https://www.inapp.gov.it/eventi/gender-policy-report-2026"
+        },
+        {
+          "title": "09 Dic 2026 Workshop sulle azioni di formazione continua 10:00 - 12:30 Online",
+          "url": "https://www.inapp.gov.it/eventi/workshop-sulle-azioni-di-formazione-continua"
+        },
+        {
+          "title": "04 Dic 2026 Laboratorio sull'amministrazione condivisa Reggio Emilia 09:00 - 13:30 In presenza",
+          "url": "https://www.inapp.gov.it/eventi/laboratorio-sullamministrazione-condivisa"
+        },
+        {
+          "title": "03 Dic 2026 Mappatura ed analisi del fenomeno del lavoro sommerso e delle politiche di contrasto Benevento 10:30 - 13:30 In presenza",
+          "url": "https://www.inapp.gov.it/eventi/mappatura-ed-analisi-del-fenomeno-del-lavoro-sommerso-e-delle-politiche-di-contrasto"
+        },
+        {
+          "title": "03 Dic 2026 Europass: servizi e strumenti per l’orientamento e l’occupabilità Roma 09:30 - 13:00 In presenza",
+          "url": "https://www.inapp.gov.it/eventi/europass-servizi-e-strumenti-per-lorientamento-e-loccupabilita"
+        },
+        {
+          "title": "03 Dic 2026 Nuove tecnologie, mercato del lavoro e competitività: evidenze per le politiche pubbliche Auditorium Inapp 09:00 - 13:00 In presenza e online",
+          "url": "https://www.inapp.gov.it/eventi/nuove-tecnologie-mercato-del-lavoro-e-competitivita-evidenze-per-le-politiche-pubbliche"
+        },
+        {
+          "title": "02 Dic 2026 Greening VET: Building Skills for Europe’s Green Transition 15:00 - 18:00 Online",
+          "url": "https://www.inapp.gov.it/eventi/greening-vet-building-skills-for-europes-green-transition"
+        },
+        {
+          "title": "02 Dic 2026 Apprendistato e Tirocinio extracurriculare. Presentazione dei Rapporti di Monitoraggio Auditorium Inapp - Roma 09:00 - 13:15 In presenza e online",
+          "url": "https://www.inapp.gov.it/eventi/apprendistato-e-tirocinio-extracurriculare-presentazione-dei-rapporti-di-monitoraggio"
+        },
+        {
+          "title": "Responsabile del procedimento di pubblicazione",
+          "url": "https://www.inapp.gov.it/responsabile-del-procedimento-di-pubblicazione/"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "Unioncamere",
+      "entry_url": "https://excelsior.unioncamere.net/",
+      "links": [
+        {
+          "title": "2025",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2025"
+        },
+        {
+          "title": "2024",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2024"
+        },
+        {
+          "title": "2023",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2023"
+        },
+        {
+          "title": "2022",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2022"
+        },
+        {
+          "title": "2021",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2021"
+        },
+        {
+          "title": "2020",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2020"
+        },
+        {
+          "title": "2019",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2019"
+        },
+        {
+          "title": "2018",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2018"
+        },
+        {
+          "title": "2017",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2017"
+        },
+        {
+          "title": "Classificazione dei titoli di studio",
+          "url": "https://excelsior.unioncamere.net/sites/default/files/documenti/Appendice_Livelli_Istruzione.pdf"
+        },
+        {
+          "title": "Tutte le notizie",
+          "url": "https://excelsior.unioncamere.net/tutte-le-notizie"
+        },
+        {
+          "title": "",
+          "url": "https://excelsior.unioncamere.net/pubblicazioni/2025/previsioni-dei-fabbisogni-occupazionali-e-professionali-italia-medio-termine2025"
+        },
+        {
+          "title": "",
+          "url": "https://excelsior.unioncamere.net/notizie/lavoro-452mila-entrate-programmate-dalle-imprese-novembre-21-il-mezzogiorno-cresce-del-36"
+        },
+        {
+          "title": "Tutte le pubblicazioni >",
+          "url": "https://excelsior.unioncamere.net/"
+        },
+        {
+          "title": "Anticipare i fabbisogni, costruire competenze: a Roma il Convegno Excelsior sul futuro del lavoro",
+          "url": "https://excelsior.unioncamere.net/notizie/anticipare-i-fabbisogni-costruire-competenze-roma-il-convegno-excelsior-sul-futuro-del"
+        },
+        {
+          "title": "Nasce “Excelsior Racconta”: la nuova rubrica video dedicata al mercato del lavoro e alle competenze del futuro.",
+          "url": "https://excelsior.unioncamere.net/notizie/nasce-excelsior-racconta-la-nuova-rubrica-video-dedicata-al-mercato-del-lavoro-e-alle"
+        },
+        {
+          "title": "Lavoro: 539mila entrate programmate dalle imprese a ottobre (+3,7%). Crescono turismo, agricoltura e servizi di supporto.",
+          "url": "https://excelsior.unioncamere.net/notizie/lavoro-539mila-entrate-programmate-dalle-imprese-ottobre-37-crescono-turismo-agricoltura-e"
+        },
+        {
+          "title": "Nuovo Bollettino Excelsior Informa",
+          "url": "https://excelsior.unioncamere.net/notizie/nuovo-bollettino-excelsior-informa"
+        },
+        {
+          "title": "565mila entrate programmate dalle imprese a settembre. Tra le professioni in maggiore crescita tecnici di apparecchiature ottiche e audio-video, specialisti dell’educazione e ingegneri.",
+          "url": "https://excelsior.unioncamere.net/notizie/565mila-entrate-programmate-dalle-imprese-settembre-tra-le-professioni-maggiore-crescita"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "INAIL",
+      "entry_url": "https://dati.inail.it/portale/it/gli-open-data-inail/calendario-pubblicazioni.html",
+      "links": [
+        {
+          "title": "Vai al menu principale",
+          "url": "https://dati.inail.it/portale/it/gli-open-data-inail/calendario-pubblicazioni.html"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "ILO",
+      "entry_url": "https://ilostat.ilo.org/resources/calendar/",
+      "links": [],
+      "status": "error",
+      "error": "HTTPError"
+    },
+    {
+      "institution": "Banca d’Italia",
+      "entry_url": "https://www.bancaditalia.it/media/agenda/index.html",
+      "links": [
+        {
+          "title": "Vai al contenuto principale",
+          "url": "https://www.bancaditalia.it/media/agenda/index.html"
+        },
+        {
+          "title": "EN Go to english version",
+          "url": "https://www.bancaditalia.it/media/agenda/index.html?com.dotmarketing.htmlpage.language=1"
+        },
+        {
+          "title": "Relazione sulla gestione e sulla sostenibilità",
+          "url": "https://www.bancaditalia.it/pubblicazioni/relazione-gest-sostenibilita/index.html"
+        },
+        {
+          "title": "Ricerca, statistiche e relazioni internazionali",
+          "url": "https://www.bancaditalia.it/compiti/ricerca-economica/index.html"
+        },
+        {
+          "title": "Mostre ed eventi",
+          "url": "https://www.bancaditalia.it/servizi-cittadino/mostre-ed-eventi/index.html"
+        },
+        {
+          "title": "Vai alla pagina Pubblicazioni",
+          "url": "https://www.bancaditalia.it/pubblicazioni/index.html"
+        },
+        {
+          "title": "Agenda delle pubblicazioni (si apre in una nuova finestra)",
+          "url": "https://www.bancaditalia.it/media/agenda/index.html?agenda-filter=pubblicazioni&filter=pubblicazioni"
+        },
+        {
+          "title": "Pubblicazioni istituzionali",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/pubblicazioni-istituzionali.html"
+        },
+        {
+          "title": "Interventi",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/interventi-memorie.html"
+        },
+        {
+          "title": "Ricerca e analisi",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/ricerca-analisi.html"
+        },
+        {
+          "title": "Educazione finanziaria",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/educazione-finanziaria.html"
+        },
+        {
+          "title": "Pubblicazioni BCE",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/pubblicazioni-bce.html"
+        },
+        {
+          "title": "Pubblicazioni statistiche",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/statistiche.html"
+        },
+        {
+          "title": "Pubblicazioni dismesse",
+          "url": "https://www.bancaditalia.it/pubblicazioni/menu/pubblicazioni-dismesse.html"
+        },
+        {
+          "title": "Vai alla pagina Pubblicazioni",
+          "url": "https://www.bancaditalia.it/pubblicazioni/"
+        },
+        {
+          "title": "Ordinamento categorico",
+          "url": "https://www.bancaditalia.it/pubblicazioni/pubblicazioni-per-categoria.html"
+        },
+        {
+          "title": "Ordinamento alfabetico",
+          "url": "https://www.bancaditalia.it/pubblicazioni/elenco-alfabetico-pubblicazioni.html"
+        },
+        {
+          "title": "Vai alla pagina Statistiche",
+          "url": "https://www.bancaditalia.it/statistiche/"
+        },
+        {
+          "title": "Vai al Portale delle Statistiche (si apre in una nuova finestra)",
+          "url": "https://statistiche.bancaditalia.it/"
+        },
+        {
+          "title": "Banche, moneta e istituzioni finanziarie",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/moneta-intermediari-finanza/index.html"
+        },
+        {
+          "title": "Mercato finanziario",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/mercati/index.html"
+        },
+        {
+          "title": "Conti finanziari, patrimoniali e distributivi",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/conti-patrimoniali/index.html"
+        },
+        {
+          "title": "Rapporti con l'Estero",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/rapporti-estero/index.html"
+        },
+        {
+          "title": "Finanza pubblica",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/finanza-pubblica/index.html"
+        },
+        {
+          "title": "Famiglie",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/famiglie/index.html"
+        },
+        {
+          "title": "Imprese",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/imprese/index.html"
+        },
+        {
+          "title": "Attività economica e prezzi",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/attivita-economica-prezzi/index.html"
+        },
+        {
+          "title": "Sistema dei pagamenti",
+          "url": "https://www.bancaditalia.it/statistiche/tematiche/statistiche-sistema-pagamenti/index.html"
+        },
+        {
+          "title": "Informazioni generali sulla raccolta dati",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/informazioni-generali/index.html"
+        },
+        {
+          "title": "Segnalazioni creditizie e finanziarie",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/segnalazioni/index.html"
+        },
+        {
+          "title": "Centrale dei rischi",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/centrale-rischi/index.html"
+        },
+        {
+          "title": "Direct reporting e altre statistiche sull'estero",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/direct-reporting/index.html"
+        },
+        {
+          "title": "Indagini su famiglie",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/indagini-famiglie/index.html"
+        },
+        {
+          "title": "Indagine triennale derivati",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/indagine-derivati/index.html"
+        },
+        {
+          "title": "Sistema informativo statistico",
+          "url": "https://www.bancaditalia.it/statistiche/raccolta-dati/sistema-informativo-statistico/index.html"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "MEF",
+      "entry_url": "https://finanze.gov.it/",
+      "links": [
+        {
+          "title": "Documenti e report di economia e finanza",
+          "url": "https://www.finanze.gov.it/it/il-dipartimento/Documenti-e-report-di-economia-e-finanza/"
+        },
+        {
+          "title": "Borse di studio e formazione",
+          "url": "https://www.finanze.gov.it/it/il-dipartimento/concorsi-e-formazione/"
+        },
+        {
+          "title": "Eventi",
+          "url": "https://www.finanze.gov.it/it/il-dipartimento/Eventi/"
+        },
+        {
+          "title": "Dati e Statistiche",
+          "url": "https://www.finanze.gov.it/it/"
+        },
+        {
+          "title": "Vai alla sezione Dati e Statistiche",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/"
+        },
+        {
+          "title": "Agevolazioni fiscali di carattere ambientale",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/agevolazioni-fiscali-di-carattere-ambientale/"
+        },
+        {
+          "title": "Dichiarazioni fiscali",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/DichiarazioniFiscali-/"
+        },
+        {
+          "title": "Fiscalità ambientale nella UE",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/fiscalitaambientalenellaue/"
+        },
+        {
+          "title": "Open data comunali: principali variabili IRPEF",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/open-data-comunale-principali-variabili-irpef/"
+        },
+        {
+          "title": "Osservatorio sulle partite IVA",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/osservatorio-sulle-partite-iva-/"
+        },
+        {
+          "title": "Indici Sintetici di Affidabilità - ex Studi di Settore",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/studi_settore/"
+        },
+        {
+          "title": "Capacità fiscale dei Comuni",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/capacita-fiscale-dei-comuni/"
+        },
+        {
+          "title": "Statistiche sul contenzioso tributario",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/statistiche-sul-contenzioso-tributario/"
+        },
+        {
+          "title": "Calendario delle pubblicazioni",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/calendario-delle-pubblicazioni/"
+        },
+        {
+          "title": "Gli immobili in Italia",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/gli-immobili-in-italia/"
+        },
+        {
+          "title": "Informative sulla privacy",
+          "url": "https://www.finanze.gov.it/it/statistiche-fiscali/Informative-sulla-privacy/"
+        },
+        {
+          "title": "Entrate tributarie e contributive luglio, agosto e settembre 2026",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/dettaglio-notizie/Entrate-tributarie-e-contributive-luglio-agosto-e-settembre-2026/"
+        },
+        {
+          "title": "Circolare n. 2/DF del 19 novembre 2026",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/dettaglio-notizie/Circolare-n.-2-DF-del-19-novembre-2026/"
+        },
+        {
+          "title": "Report sulla fatturazione elettronica agosto-settembre 2026",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/dettaglio-notizie/Report-sulla-fatturazione-elettronica-agosto-settembre-2026/"
+        },
+        {
+          "title": "Entrate tributarie internazionali settembre 2026",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/dettaglio-notizie/Entrate-tributarie-internazionali-settembre-2026-00002/"
+        },
+        {
+          "title": "Osservatorio sulle partite IVA – terzo trimestre 2026",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/dettaglio-notizie/Osservatorio-sulle-partite-IVA-terzo-trimestre-2026/"
+        },
+        {
+          "title": "Leggi tutte le Notizie",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/"
+        },
+        {
+          "title": "Entrate tributarie settembre 2026",
+          "url": "https://www.finanze.gov.it/it/archivi/notizie/dettaglio-notizie/Entrate-tributarie-settembre-2026-00002/"
+        },
+        {
+          "title": "Vai al calendario completo",
+          "url": "https://www.finanze.gov.it/it/archivi/calendario-pubblicazioni/"
+        },
+        {
+          "title": "Nota di Aggiornamento DEF e Relazione economia non osservata",
+          "url": "https://www.finanze.gov.it/it/il-dipartimento/Documenti-e-report-di-economia-e-finanza/nota-di-aggiornamento-def-e-relazione-economia-non-osservata/"
+        },
+        {
+          "title": "Pubblicazioni fiscali di tipo economico-statistico",
+          "url": "https://www.finanze.gov.it/it/il-dipartimento/Documenti-e-report-di-economia-e-finanza/pubblicazioni-internazionali/"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "OECD",
+      "entry_url": "https://www.oecd.org/en/data/insights/statistical-releases/release-dates-for-oecd-statistics-news-releases.html",
+      "links": [],
+      "status": "error",
+      "error": "HTTPError"
+    },
+    {
+      "institution": "World Bank",
+      "entry_url": "https://www.worldbank.org/en/events/all",
+      "links": [
+        {
+          "title": "News",
+          "url": "https://www.worldbank.org/ext/en/news"
+        },
+        {
+          "title": "Events",
+          "url": "https://www.worldbank.org/en/events/all"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "CNEL",
+      "entry_url": "https://www.cnel.it/home/attivit%C3%A0-cnel",
+      "links": [
+        {
+          "title": "Recidiva zero. Studio, formazione e lavoro in carcere: dalle esperienze progettuali alle azioni di sistema.",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema"
+        },
+        {
+          "title": "Edizione 2025",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema/edizione-2025"
+        },
+        {
+          "title": "Edizione 2025 - Materiali e documenti",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema/edizione-2025-materiali-e-documenti"
+        },
+        {
+          "title": "Edizione 2025 - Interventi dei relatori",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema/edizione-2025-interventi-dei-relatori"
+        },
+        {
+          "title": "Edizione 2024",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema/edizione-2024"
+        },
+        {
+          "title": "Edizione 2024 - Materiali e documenti",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema/edizione-2024-materiali-e-documenti"
+        },
+        {
+          "title": "Edizione 2024 - Interventi dei relatori",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/progetti-e-iniziative-xi-consiliatura/recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema/edizione-2024-interventi-dei-relatori"
+        },
+        {
+          "title": "Notizie",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/xi-consiliatura-commissioni-e-organismi/commissioni/commissione-politiche-sociali-sviluppo-sostenibile-terzo-settore/consulta-nazionale-per-la-sicurezza-stradale-e-la-mobilita-sostenibile/notizie"
+        },
+        {
+          "title": "Attività e Notizie Conferenza",
+          "url": "https://www.cnel.it/chi-siamo/xi-consiliatura/xi-consiliatura-commissioni-e-organismi/commissioni/commissione-politiche-dell'unione-europea-e-cooperazione-internazionale/conferenza-sul-futuro-delleuropa/attivita-e-notizie-conferenza"
+        },
+        {
+          "title": "Patrocini e Eventi",
+          "url": "https://www.cnel.it/chi-siamo/patrocini-e-eventi"
+        },
+        {
+          "title": "Bilancio preventivo e consuntivo",
+          "url": "https://www.cnel.it/chi-siamo/amministrazione-trasparente/bilanci/bilancio-preventivo-e-consuntivo"
+        },
+        {
+          "title": "Sovvenzioni, contributi, borse di studio, sussidi, tirocini, vantaggi economici",
+          "url": "https://www.cnel.it/chi-siamo/amministrazione-trasparente/sovvenzioni-contributi-borse-di-studio-sussidi-tirocini-vantaggi-economici"
+        },
+        {
+          "title": "Criteri e modalità",
+          "url": "https://www.cnel.it/chi-siamo/amministrazione-trasparente/sovvenzioni-contributi-borse-di-studio-sussidi-tirocini-vantaggi-economici/criteri-e-modalita"
+        },
+        {
+          "title": "Atti di concessione",
+          "url": "https://www.cnel.it/chi-siamo/amministrazione-trasparente/sovvenzioni-contributi-borse-di-studio-sussidi-tirocini-vantaggi-economici/atti-di-concessione"
+        },
+        {
+          "title": "Borse di studio e tirocini",
+          "url": "https://www.cnel.it/chi-siamo/amministrazione-trasparente/sovvenzioni-contributi-borse-di-studio-sussidi-tirocini-vantaggi-economici/borse-di-studio-e-tirocini"
+        },
+        {
+          "title": "Prospetti e report dei CCNL depositati",
+          "url": "https://www.cnel.it/archivio-contratti/prospetti-e-report-dei-ccnl-depositati"
+        },
+        {
+          "title": "Prospetti mensili dei CCNL depositati",
+          "url": "https://www.cnel.it/archivio-contratti/prospetti-e-report-dei-ccnl-depositati/prospetti-mensili-dei-ccnl-depositati"
+        },
+        {
+          "title": "Report CCNL vigenti",
+          "url": "https://www.cnel.it/archivio-contratti/prospetti-e-report-dei-ccnl-depositati/report-ccnl-vigenti"
+        },
+        {
+          "title": "Reports Contratti di Solidarietà",
+          "url": "https://www.cnel.it/archivio-contratti/prospetti-e-report-dei-ccnl-depositati/reports-contratti-di-solidarietà"
+        },
+        {
+          "title": "Rapporti istituzionali di Enti e Istituzioni pubbliche",
+          "url": "https://www.cnel.it/banca-dati-lavoro/banca-dati-sul-mercato-del-lavoro/rapporti-istituzionali-di-enti-e-istituzioni-pubbliche"
+        },
+        {
+          "title": "Rapporti istituzionali di Enti e Istituzioni private",
+          "url": "https://www.cnel.it/banca-dati-lavoro/banca-dati-sul-mercato-del-lavoro/rapporti-istituzionali-di-enti-e-istituzioni-private"
+        },
+        {
+          "title": "Studi internazionali e comparati",
+          "url": "https://www.cnel.it/banca-dati-lavoro/banca-dati-sul-mercato-del-lavoro/studi-internazionali-e-comparati"
+        },
+        {
+          "title": "Rapporti (legge 30 dicembre 1986, n. 936, articolo 10, comma 1, lettera c)",
+          "url": "https://www.cnel.it/documenti/rapporti-legge-30-dicembre-1986-n-936-articolo-10-comma-1-lettera-c"
+        },
+        {
+          "title": "Studi e indagini",
+          "url": "https://www.cnel.it/documenti/studi-e-indagini"
+        },
+        {
+          "title": "Notizie",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notizie"
+        },
+        {
+          "title": "Primo Piano",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notizie/primo-piano"
+        },
+        {
+          "title": "News",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notizie/news"
+        },
+        {
+          "title": "Detail",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notizie/news/detail"
+        },
+        {
+          "title": "Segnalazioni",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notizie/segnalazioni"
+        },
+        {
+          "title": "Comunicati stampa",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notizie/comunicati-stampa"
+        },
+        {
+          "title": "Eventi",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/eventi"
+        },
+        {
+          "title": "Detail",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/eventi/detail"
+        },
+        {
+          "title": "Comunicati Stampa",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/comunicati-stampa"
+        },
+        {
+          "title": "Notiziario CNEL",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/notiziario-cnel"
+        },
+        {
+          "title": "Kit stampa - 'Recidiva zero. Studio, formazione e lavoro in carcere: dalle esperienze progettuali alle azioni di sistema in carcere e fuori dal carcere' - 16.04.2024",
+          "url": "https://www.cnel.it/comunicazione-e-stampa/kit-stampa/kit-stampa-recidiva-zero-studio-formazione-e-lavoro-in-carcere-dalle-esperienze-progettuali-alle-azioni-di-sistema-in-carcere-e-fuori-dal-carcere-16042024"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "ADAPT",
+      "entry_url": "https://www.adapt.it/",
+      "links": [
+        {
+          "title": "Ricerca e pubblicazioni",
+          "url": "https://www.adapt.it/ricerca/"
+        },
+        {
+          "title": "Eventi e corsi",
+          "url": "https://www.bollettinoadapt.it/eventi/"
+        },
+        {
+          "title": "Servizi di consulenza, progettazione e traduzione sui temi del diritto del lavoro e delle relazioni industriali per orientarsi nelle complesse questioni giuridiche connesse alla gestione quotidiana dei rapporti di lavoro.",
+          "url": "https://www.adapt.it/consulenza/"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "Fondazione Studi CdL",
+      "entry_url": "https://www.consulentidellavoro.it/",
+      "links": [
+        {
+          "title": "Notizie dall'Europa",
+          "url": "https://www.consulentidellavoro.it/home/notizie-dall-europa"
+        },
+        {
+          "title": "Fondazione Studi",
+          "url": "https://www.consulentidellavoro.it/siti-istituzionali/fs"
+        },
+        {
+          "title": "Coordinatori regionali di Consulta riuniti il 26 e 27.11 per un confronto sulla riforma della L. n. 12/1979 e il futuro degli studi professionali",
+          "url": "https://www.consulentidellavoro.it/home/storico-articoli/20042-il-valore-del-lavoro-conferenza-programmatica-ad-assisi"
+        }
+      ],
+      "status": "candidates_only"
+    },
+    {
+      "institution": "DG EMPL",
+      "entry_url": "https://employment-social-affairs.ec.europa.eu/",
+      "links": [],
+      "status": "no_candidates"
+    }
+  ],
+  "events": []
+}
