@@ -46,7 +46,7 @@ def full_rows(raw,review,audited,allow,individual=None,numbering=None,novelty=No
             row["ics"]=(individual or {}).get(key(row),"")
         except (ValueError,KeyError,TypeError): pass
     ordered=sorted(rows.values(),key=lambda e:(e["date"],e["institution"],e["title"]))
-    labels={"new":"Nuovo","already_reported":"Già segnalato","baseline_unavailable":"Non confrontabile"}
+    labels={"new":"Nuovo","already_reported":"Già segnalato","baseline_unavailable":"Non confrontabile","postponed":"Rinviato","advanced":"Anticipato","date_changed_unverified":"Data diversa da verificare"}
     for i,row in enumerate(ordered,1):
         row["calendar_number"]=i
         row["digest_number"]=(numbering or {}).get(key(row),"")
@@ -68,8 +68,8 @@ def write_csv(path,rows):
 def health_html(health):
     if not health: return ""
     lines=["<h2>Controlli di esecuzione</h2><table style='border-collapse:collapse;font-size:14px;width:100%'>"]
-    labels={"python":"Raccolta Python","claude":"Revisione Claude","chatgpt":"Audit ChatGPT"}
-    names={"ok":"Completato","missing":"Consegna assente","invalid":"Consegna non valida","unknown":"Non verificabile"}
+    labels={"python":"Raccolta Python","parser_quality":"Qualità dei parser","claude":"Revisione Claude","chatgpt":"Audit ChatGPT"}
+    names={"ok":"Completato","missing":"Consegna assente","invalid":"Consegna non valida","unknown":"Non verificabile","partial":"Parziale"}
     for k,v in health["stages"].items():
         state=names.get(v["status"],v["status"])
         extra=f" – {v['missed_weeks']} settimane consecutive senza consegna verificata" if v["missed_weeks"] else ""

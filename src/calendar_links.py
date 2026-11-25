@@ -1,5 +1,6 @@
 """One-click draft events; no account access or automatic insertion."""
 import datetime as dt
+from src.common import repository
 from urllib.parse import urlencode,quote
 
 def calendar_links(event,verified=False):
@@ -14,4 +15,4 @@ def calendar_links(event,verified=False):
 
 def individual_ics_url(run_date,uid):
     # Public, official-source-only calendar artifacts. Published before SMTP.
-    return f"https://github.com/AntikGhalt/institutional-radar/raw/refs/heads/main/data/{run_date}/calendar-events/{uid}.ics"
+    return f"https://github.com/{repository()}/raw/refs/heads/main/data/{run_date}/calendar-events/{uid}.ics"

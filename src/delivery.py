@@ -11,7 +11,7 @@ def send(root,raw,review,out,title,reserve_only=False,deliver=None):
     if not token: raise ValueError("Delivery requires a workflow reservation token")
     if receipt.exists() and load(receipt).get("status")=="sent":
         print("Already delivered; no duplicate email."); return
-    names=["report.html","calendar.ics","full-calendar.csv","digest-events.json"]+[str(p.relative_to(out)) for p in sorted((out/"calendar-events").glob("*.ics"))]
+    names=["report.html","calendar.ics","full-calendar.xlsx","digest-events.json","metrics.json"]+[str(p.relative_to(out)) for p in sorted((out/"calendar-events").glob("*.ics"))]
     files={n:hashlib.sha256((out/n).read_bytes()).hexdigest() for n in names}
     env={k:os.environ.get(k,"") for k in ("SMTP_USER","SMTP_PASSWORD","NOTIFY_TO")}
     if not all(env.values()): raise ValueError("SMTP credentials or recipient not configured")
@@ -21,11 +21,13 @@ def send(root,raw,review,out,title,reserve_only=False,deliver=None):
         if published.exists(): raise ValueError("Individual calendar files already published; inspect run")
         shutil.copytree(out/"calendar-events",published)
         shutil.copyfile(out/"digest-events.json",receipt.parent/"digest-events.json")
+        shutil.copyfile(out/"metrics.json",receipt.parent/"metrics.json")
         write(receipt,{"status":"reserved","token":token,"at":dt.datetime.now(TZ).isoformat(),"files":files,"subject":title}); return
     if not receipt.exists(): raise ValueError("Missing persisted reservation")
     record=load(receipt)
     if record.get("status")!="reserved" or record.get("token")!=token or record.get("files")!=files: raise ValueError("Missing matching persisted reservation")
     if hashlib.sha256((receipt.parent/"digest-events.json").read_bytes()).hexdigest()!=files["digest-events.json"]: raise ValueError("Published digest manifest mismatch")
+    if hashlib.sha256((receipt.parent/"metrics.json").read_bytes()).hexdigest()!=files["metrics.json"]: raise ValueError("Published metrics mismatch")
     for n in names:
         if n.startswith("calendar-events/") and hashlib.sha256((receipt.parent/n).read_bytes()).hexdigest()!=files[n]: raise ValueError("Published event file mismatch")
     msg=build_message(out,record["subject"],env)
@@ -39,7 +41,7 @@ def build_message(out,title,env):
     msg=EmailMessage(); msg["Subject"]=title; msg["From"]=env["SMTP_USER"]; msg["To"]=env["NOTIFY_TO"]
     msg.set_content("Agenda istituzionale: consultare la versione HTML e gli allegati.")
     msg.add_alternative(read(out/"report.html"),subtype="html")
-    msg.add_attachment((out/"full-calendar.csv").read_bytes(),maintype="text",subtype="csv",filename="calendario-completo.csv")
+    msg.add_attachment((out/"full-calendar.xlsx").read_bytes(),maintype="application",subtype="vnd.openxmlformats-officedocument.spreadsheetml.sheet",filename="calendario-completo.xlsx")
     if b"BEGIN:VEVENT" in (out/"calendar.ics").read_bytes():
         msg.add_attachment((out/"calendar.ics").read_bytes(),maintype="text",subtype="calendar",filename="appuntamenti-selezionati.ics")
     return msg
