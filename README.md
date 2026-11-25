@@ -41,8 +41,8 @@ The collector retains dated candidates and per-source diagnostics. Candidates ar
 ## Output and operational health
 
 - **HTML digest:** selected releases with date, institution, relevance, concise explanation and official link.
-- **Full calendar CSV:** all dated candidates retrieved from structured sources, plus selected research results. Distinguishes raw leads, tentative dates and reviewed dates; not a claim of complete coverage of every institution.
-- **ICS:** high-relevance, confirmed selected events only, after a valid independent audit. Empty calendars are not attached to email.
+- **Full calendar CSV:** all dated candidates retrieved from structured sources, plus research results, including calendar-only discoveries. Distinguishes raw leads, tentative dates and reviewed dates; not a claim of complete coverage of every institution.
+- **ICS:** high-relevance, confirmed selected events only, after a valid independent audit. Empty calendars are not attached to email. Each audited, confirmed editorial event also has individual Outlook web / Google Calendar draft links and a single-event ICS download, published with delivery. The CSV includes calendar draft URLs, with unverified events explicitly marked in their draft titles. Calendar-only items never enter the email or bulk ICS.
 - **Operational checks:** collection, Claude handoff and ChatGPT audit; missing or unverifiable deliveries are counted across successive recorded weeks. A first missing stage produces a partial digest; two consecutive weeks without a verifiable handoff trigger a critical subject and header. The system does not infer subscription exhaustion from absent files.
 - If Claude or the audit is missing, delivery continues with a clearly labelled partial digest. If both are missing, the email can carry diagnostics and raw calendar candidates without claiming an editorial review. No previous week's data are substituted for a missing current collection.
 

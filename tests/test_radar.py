@@ -38,4 +38,23 @@ class RadarTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)):
             out,_=r.render(self.raw,r.validate_review(self.raw,self.review),audited=True)
             self.assertIn("BEGIN:VEVENT",(out/"calendar.ics").read_text()); self.assertNotIn("<script>",(out/"report.html").read_text())
+    def test_calendar_only_and_individual_links(self):
+        self.raw["mode"]="live"; self.review["mode"]="live"; self.review["collection_sha256"]=r.digest(self.raw)
+        self.review["events"][0]["relevance"]="calendar_only"
+        self.review["events"][1]["relevance"]="medium"
+        self.review["events"][2]["certainty"]="tentative"
+        with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)):
+            out,_=r.render(self.raw,r.validate_review(self.raw,self.review),audited=True)
+            page=(out/"report.html").read_text()
+            self.assertNotIn("Evento sintetico 1 (NON REALE)",page)
+            self.assertIn("Evento sintetico 1 (NON REALE)",(out/"full-calendar.csv").read_text())
+            self.assertIn("outlook.office.com",page)
+            self.assertEqual(len(list((out/"calendar-events").glob("*.ics"))),1)
+            self.assertNotIn("BEGIN:VEVENT",(out/"calendar.ics").read_text())
+    def test_sent_is_noop(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(r,"ROOT",Path(tmp)),patch.dict(r.os.environ,{"ENABLE_EMAIL":"true","RADAR_DELIVERY_TOKEN":"test"}):
+            self.raw["mode"]="live"
+            r.write(Path(tmp)/"data"/self.raw["run_date"]/"delivery.json",{"status":"sent"})
+            r.send(self.raw,None,Path(tmp),"",reserve_only=True)
+            r.send(self.raw,None,Path(tmp),"")
 if __name__=="__main__": unittest.main()

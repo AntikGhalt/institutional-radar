@@ -6,6 +6,7 @@ import json
 import re
 import unicodedata
 from pathlib import Path
+from src.calendar_links import calendar_links
 
 def esc(x): return html.escape(str(x),quote=True)
 def load(path): return json.loads(path.read_text(encoding="utf-8"))
@@ -26,7 +27,7 @@ def weekly_health(data,run,stages):
         result[name]={"status":state,"note":note,"missed_weeks":streak}
     return {"schema":1,"run_date":run,"stages":result,"critical":any(v["missed_weeks"]>=2 for v in result.values()),"degraded":any(v["status"]!="ok" for v in result.values())}
 
-def full_rows(raw,review,audited,allow):
+def full_rows(raw,review,audited,allow,individual=None):
     rows={}
     for e in raw.get("events",[]):
         try:
@@ -37,7 +38,13 @@ def full_rows(raw,review,audited,allow):
         status=("Data provvisoria" if e["certainty"]=="tentative" else "Confermata nella revisione")
         if not audited: status+=" – audit indipendente assente"
         old=rows.get(key(e),{})
-        rows[key(e)]={"date":e["date"],"institution":e["institution"],"title":e["title"],"url":e["url"],"status":status,"selected":"Sì","method":old.get("method","Revisione"),"evidence":e["evidence"]}
+        rows[key(e)]={"date":e["date"],"institution":e["institution"],"title":e["title"],"url":e["url"],"status":status,"selected":"No" if e.get("relevance")=="calendar_only" else "Sì","method":old.get("method","Revisione"),"evidence":e["evidence"]}
+    for row in rows.values():
+        if raw.get("mode")=="demo": continue
+        try:
+            row.update(calendar_links(row,verified=audited and row["status"]=="Confermata nella revisione"))
+            row["ics"]=(individual or {}).get(key(row),"")
+        except (ValueError,KeyError,TypeError): pass
     return sorted(rows.values(),key=lambda e:(e["date"],e["institution"],e["title"]))
 
 def cell(v):
@@ -46,10 +53,10 @@ def cell(v):
     return "'"+s if s.lstrip().startswith(("=","+","-","@")) or s.startswith(("\t","\r","\n")) else s
 
 def write_csv(path,rows):
-    fields=["date","institution","title","url","status","selected","method","evidence"]
+    fields=["date","institution","title","url","status","selected","method","evidence","outlook","google","ics"]
     with path.open("w",encoding="utf-8-sig",newline="") as f:
         w=csv.writer(f,delimiter=";")
-        w.writerow(["Data","Ente","Titolo","Fonte","Stato verifica","Nel digest","Metodo","Evidenza"])
+        w.writerow(["Data","Ente","Titolo","Fonte","Stato verifica","Nel digest","Metodo","Evidenza","Aggiungi a Outlook (web)","Aggiungi a Google Calendar","File ICS individuale (se disponibile)"])
         for e in rows: w.writerow([cell(e.get(k,"")) for k in fields])
 
 def health_html(health):

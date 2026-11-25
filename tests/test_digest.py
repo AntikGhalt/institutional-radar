@@ -22,3 +22,13 @@ class DigestTests(unittest.TestCase):
         self.assertEqual(len(rows),1); self.assertIn("audit indipendente assente",rows[0]["status"])
     def test_csv_safe(self):
         self.assertEqual(cell("=1+1"),"'=1+1")
+    def test_calendar_only_retained(self):
+        e={"institution":"ISTAT","date":"2026-12-01","title":"Business survey","url":"https://istat.it/","evidence":"calendar","certainty":"confirmed","relevance":"calendar_only"}
+        rows=full_rows({"mode":"live","events":[]},{"events":[e]},True,lambda u,n:True)
+        self.assertEqual(rows[0]["selected"],"No")
+        self.assertIn("outlook.office.com",rows[0]["outlook"])
+        self.assertIn("calendar.google.com",rows[0]["google"])
+    def test_candidate_link_warns(self):
+        e={"institution":"ISTAT","date":"2026-12-01","title":"Business survey","url":"https://istat.it/"}
+        row=full_rows({"mode":"live","events":[e]},None,False,lambda u,n:True)[0]
+        self.assertIn("Da%20verificare",row["outlook"])

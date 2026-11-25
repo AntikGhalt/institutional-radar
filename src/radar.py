@@ -1,5 +1,5 @@
 """Institutional Radar: collection, review validation, preview and gated delivery."""
-import argparse, concurrent.futures, datetime as dt, hashlib, html, json, os, re, smtplib, ssl
+import argparse, concurrent.futures, datetime as dt, hashlib, html, json, os, re, smtplib, ssl, shutil
 from email.message import EmailMessage
 from html.parser import HTMLParser
 from pathlib import Path
@@ -8,7 +8,8 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 from src.calendars import adapter
 from src.audit import validate_audit
-from src.digest import weekly_health,full_rows,write_csv,health_html
+from src.digest import weekly_health,full_rows,write_csv,health_html,key
+from src.calendar_links import calendar_links,individual_ics_url
 
 ROOT=Path(__file__).resolve().parents[1]
 TZ=ZoneInfo("Europe/Rome")
@@ -87,7 +88,7 @@ def validate_review(raw,review):
         s=SOURCE_MAP[e["institution"]]
         if not all(isinstance(e[k],str) and e[k].strip() for k in ("title","why","evidence","url")): raise ValueError("Missing evidence")
         if not allowed_source(e["url"],s,legacy_demo=raw["mode"]=="demo"): raise ValueError("Invalid primary URL")
-        if e["relevance"] not in ("high","medium") or e["certainty"] not in ("confirmed","tentative"): raise ValueError("Invalid classification")
+        if e["relevance"] not in ("high","medium","calendar_only") or e["certainty"] not in ("confirmed","tentative"): raise ValueError("Invalid classification")
         date=dt.date.fromisoformat(e["date"])
         if not start<=date<=end: raise ValueError("Outside horizon")
         key=(e["institution"],e["date"]," ".join(e["title"].casefold().split()))
@@ -105,9 +106,35 @@ def fold(line):
         if len((buf+c).encode())>75: chunks.append(buf); buf=" "+c
         else: buf+=c
     return "\r\n".join(chunks+[buf])
+def event_uid(e):
+    # Stable across weekly overlapping horizons; same release should use the same UID.
+    return digest([e["institution"],e["title"]])[:32]
+
+def event_lines(e,stamp):
+    d=dt.date.fromisoformat(e["date"])
+    return ["BEGIN:VEVENT","UID:"+event_uid(e)+"@institutional-radar","DTSTAMP:"+stamp,"DTSTART;VALUE=DATE:"+d.strftime("%Y%m%d"),"DTEND;VALUE=DATE:"+(d+dt.timedelta(days=1)).strftime("%Y%m%d"),"SUMMARY:"+ics_escape(e["institution"]+" — "+e["title"]),"DESCRIPTION:"+ics_escape(e["why"]+"\n"+e["url"]),"TRANSP:TRANSPARENT","END:VEVENT"]
+
+def ics_bytes(events,stamp):
+    lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Institutional Radar//IT","CALSCALE:GREGORIAN"]
+    for e in events: lines+=event_lines(e,stamp)
+    lines.append("END:VCALENDAR")
+    return ("\r\n".join(map(fold,lines))+"\r\n").encode()
+
 def render(raw,review,health=None,audited=False):
     start=dt.date.fromisoformat(raw["run_date"])+dt.timedelta(days=1)
-    events=sorted(review["events"],key=lambda e:(e["date"],e["institution"])) if review else []
+    events=sorted((e for e in (review or {}).get("events",[]) if e["relevance"]!="calendar_only"),key=lambda e:(e["date"],e["institution"]))
+    out=ROOT/"output"/raw["run_date"]; out.mkdir(parents=True,exist_ok=True)
+    individual_dir=out/"calendar-events"
+    if individual_dir.exists(): shutil.rmtree(individual_dir)
+    individual_dir.mkdir()
+    stamp=dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    eligible=[e for e in events if raw["mode"]=="live" and audited and e["certainty"]=="confirmed"]
+    individual={}
+    for e in eligible:
+        uid=event_uid(e)
+        (individual_dir/(uid+".ics")).write_bytes(ics_bytes([e],stamp))
+        individual[key(e)]=individual_ics_url(raw["run_date"],uid)
+    rows=full_rows(raw,review,audited,lambda url,name: name in SOURCE_MAP and allowed_source(url,SOURCE_MAP[name],legacy_demo=raw["mode"]=="demo"),individual)
     title=f"Radar istituzionale | {start:%d/%m/%Y} – {start+dt.timedelta(days=29):%d/%m/%Y}"
     warning="DEMO — nessun evento reale." if raw["mode"]=="demo" else ("Nessuna selezione editoriale disponibile. Il calendario allegato contiene soltanto i candidati recuperati." if review is None else "Selezione verificata dall’audit indipendente, nei limiti indicati." if audited else "Selezione disponibile, ma audit indipendente assente: date non ricontrollate dal secondo agente.")
     if health and health["critical"]: title="[CRITICO] "+title
@@ -115,43 +142,56 @@ def render(raw,review,health=None,audited=False):
     h=[f'<!doctype html><html lang="it"><meta charset="utf-8"><body style="font-family:Arial,sans-serif;max-width:780px;margin:auto"><h1>{esc(title)}</h1><p><strong>{esc(warning)}</strong></p>']
     if health and health["critical"]: h.append("<p><strong>PROBLEMA CRITICO: almeno una fase è priva di una consegna verificata da due settimane consecutive.</strong></p>")
     if health and health["degraded"]: h.append(health_html(health))
+    h.append(f"<p>{len(events)} appuntamenti selezionati · {len(rows)} voci nel calendario completo.</p>")
+    if raw["mode"]=="live" and not raw.get("events"): h.append("<p>Attenzione: nessun candidato datato nella raccolta Python; il CSV contiene soltanto gli eventi individuati nella revisione, se disponibile.</p>")
     for low,high,label in [(0,6,"Settimana in arrivo"),(7,20,"Due settimane successive"),(21,29,"Resto dei 30 giorni")]:
         h.append(f"<h2>{label}</h2>")
         group=[e for e in events if low<=(dt.date.fromisoformat(e["date"])-start).days<=high]
         if not group: h.append("<p>Nessun appuntamento selezionato in questa sezione.</p>")
         for e in group:
-            h.append(f'<p><strong>{esc(e["date"])} — {esc(e["institution"])} — {esc(e["title"])}</strong><br>{esc(e["why"])}<br>{"Confermata nella revisione" if e["certainty"]=="confirmed" else "Provvisoria"} · {"Alta" if e["relevance"]=="high" else "Media"} · <a href="{esc(e["url"])}">Fonte ufficiale</a></p>')
+            extras=""
+            if key(e) in individual:
+                link=calendar_links(e,verified=True)
+                extras=f' · Aggiungi: <a href="{esc(link["outlook"])}">Outlook</a> | <a href="{esc(link["google"])}">Google Calendar</a> | <a href="{esc(individual[key(e)])}">.ics</a>'
+            h.append(f'<p><strong>{esc(e["date"])} — {esc(e["institution"])} — {esc(e["title"])}</strong><br>{esc(e["why"])}<br>{"Confermata nella revisione" if e["certainty"]=="confirmed" else "Provvisoria"} · {"Alta" if e["relevance"]=="high" else "Media"} · <a href="{esc(e["url"])}">Fonte ufficiale</a>{extras}</p>')
     if health and not health["degraded"]: h.append(health_html(health))
     h.append("<h2>Copertura e limiti</h2>")
     coverage={c["institution"]:c for c in review["coverage"]} if review else {}
+    counts={state:sum(c["status"]==state for c in coverage.values()) for state in ("checked","partial","unavailable")}
+    if coverage:
+        h.append(f'<p>Fonti verificate: {counts["checked"]}; parziali: {counts["partial"]}; non disponibili: {counts["unavailable"]}. <a href="https://github.com/AntikGhalt/institutional-radar/tree/main/data/{esc(raw["run_date"])}">Dettagli e dati della rilevazione</a>.</p>')
     for s in raw["sources"]:
-        c=coverage.get(s["institution"],{}); h.append(f'<p>{esc(s["institution"])}: Python {esc(s["status"])}; revisione {esc(c.get("status","assente"))}. {esc(c.get("note",s.get("error","")))}</p>')
-    rows=full_rows(raw,review,audited,lambda url,name: name in SOURCE_MAP and allowed_source(url,SOURCE_MAP[name],legacy_demo=raw["mode"]=="demo"))
-    h.append(f"<p>Allegato CSV: {len(rows)} appuntamenti recuperati, compresi candidati non verificati. L’ICS contiene solo eventi selezionati di alta rilevanza con data confermata e audit valido.</p></body></html>")
-    lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Institutional Radar//IT","CALSCALE:GREGORIAN"]
-    if raw["mode"]=="live" and audited:
-        for e in events:
-            if e["certainty"]!="confirmed" or e["relevance"]!="high": continue
-            d=dt.date.fromisoformat(e["date"]); uid=digest([e["institution"],e["title"]])[:32]+"@institutional-radar"
-            lines+=["BEGIN:VEVENT","UID:"+uid,"DTSTAMP:"+dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ"),"DTSTART;VALUE=DATE:"+d.strftime("%Y%m%d"),"DTEND;VALUE=DATE:"+(d+dt.timedelta(days=1)).strftime("%Y%m%d"),"SUMMARY:"+ics_escape(e["institution"]+" — "+e["title"]),"DESCRIPTION:"+ics_escape(e["why"]+"\n"+e["url"]),"TRANSP:TRANSPARENT","END:VEVENT"]
-    lines.append("END:VCALENDAR"); out=ROOT/"output"/raw["run_date"]; out.mkdir(parents=True,exist_ok=True)
-    (out/"report.html").write_text("\n".join(h),encoding="utf-8"); (out/"calendar.ics").write_bytes(("\r\n".join(map(fold,lines))+"\r\n").encode()); write_csv(out/"full-calendar.csv",rows); return out,title
+        c=coverage.get(s["institution"],{})
+        if c.get("status")=="checked": continue
+        h.append(f'<p style="font-size:13px">{esc(s["institution"])}: Python {esc(s["status"])}; revisione {esc(c.get("status","assente"))}. {esc(c.get("note",s.get("error","")))}</p>')
+    h.append(f"<p>CSV: {len(rows)} appuntamenti recuperati, con stato e collegamenti per aggiungere singole voci. I candidati non verificati aprono bozze contrassegnate «Da verificare». L’ICS cumulativo include solo eventi selezionati di alta rilevanza con data confermata e audit valido. I link individuali .ics sono pubblicati con l’invio.</p></body></html>")
+    (out/"report.html").write_text("\n".join(h),encoding="utf-8")
+    (out/"calendar.ics").write_bytes(ics_bytes([e for e in eligible if e["relevance"]=="high"],stamp))
+    write_csv(out/"full-calendar.csv",rows)
+    return out,title
 def send(raw,review,out,title,reserve_only=False):
     if raw["mode"]!="live": raise ValueError("Synthetic demo must never be sent")
     if os.getenv("ENABLE_EMAIL")!="true": raise ValueError("Sending disabled")
     receipt=ROOT/"data"/raw["run_date"]/"delivery.json"
     token=os.getenv("RADAR_DELIVERY_TOKEN","")
     if not token: raise ValueError("Delivery requires a workflow reservation token")
-    names=("report.html","calendar.ics","full-calendar.csv")
+    if receipt.exists() and load(receipt).get("status")=="sent":
+        print("Already delivered; no duplicate email."); return
+    names=["report.html","calendar.ics","full-calendar.csv"]+[str(p.relative_to(out)) for p in sorted((out/"calendar-events").glob("*.ics"))]
     files={n:hashlib.sha256((out/n).read_bytes()).hexdigest() for n in names}
     env={k:os.environ.get(k,"") for k in ("SMTP_USER","SMTP_PASSWORD","NOTIFY_TO")}
     if not all(env.values()): raise ValueError("SMTP credentials or recipient not configured")
     if reserve_only:
         if receipt.exists(): raise ValueError("Already reserved or attempted; inspect receipt before retry")
+        published=receipt.parent/"calendar-events"
+        if published.exists(): raise ValueError("Individual calendar files already published; inspect run")
+        shutil.copytree(out/"calendar-events",published)
         write(receipt,{"status":"reserved","token":token,"at":dt.datetime.now(TZ).isoformat(),"files":files,"subject":title}); return
     if not receipt.exists(): raise ValueError("Missing persisted reservation")
     record=load(receipt)
     if record.get("status")!="reserved" or record.get("token")!=token or record.get("files")!=files: raise ValueError("Missing matching persisted reservation")
+    for n in names:
+        if n.startswith("calendar-events/") and hashlib.sha256((receipt.parent/n).read_bytes()).hexdigest()!=files[n]: raise ValueError("Published event file mismatch")
     msg=EmailMessage(); msg["Subject"]=record["subject"]; msg["From"]=env["SMTP_USER"]; msg["To"]=env["NOTIFY_TO"]
     msg.set_content("Agenda istituzionale: consultare la versione HTML e gli allegati.")
     msg.add_alternative(read(out/"report.html"),subtype="html")
