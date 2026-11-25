@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "run_date": "2026-12-06",
+  "stages": {
+    "python": {
+      "status": "missing",
+      "note": "Nessuna raccolta disponibile.",
+      "missed_weeks": 1
+    },
+    "claude": {
+      "status": "missing",
+      "note": "Raccolta necessaria alla revisione assente o non valida.",
+      "missed_weeks": 1
+    },
+    "chatgpt": {
+      "status": "missing",
+      "note": "Raccolta necessaria all’audit assente o non valida.",
+      "missed_weeks": 1
+    }
+  },
+  "critical": false,
+  "degraded": true
+}
