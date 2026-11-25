@@ -1,11 +1,4 @@
 {
-  "status": "reserved",
-  "token": "45639593046-1",
-  "at": "2026-11-25T15:56:50.028309+01:00",
-  "files": {
-    "report.html": "4d503e0819b567ecff91b0d299c2d98dcd16b3d7b65665082ffc71f1c49c978f",
-    "calendar.ics": "098db7b8092ae781a2bb8c7cf78b37e820bbc5abde71bdc96b23d11aa6bc7eba",
-    "full-calendar.csv": "e4d0474e5c1afa38549ee1d80264bf6a2c3bd1ebe2f62296eea7c06df42e427f"
-  },
-  "subject": "[PARZIALE] Radar istituzionale | 07/12/2026 – 05/01/2027"
+  "status": "sent",
+  "at": "2026-11-25T15:56:52.780299+01:00"
 }
