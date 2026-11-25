@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "mode": "demo",
+  "run_date": "2026-11-22",
+  "collection_sha256": "08ba20a76a7e59e861799693c4dea0207bc164d1b0336ea5d397a96ebb521813",
+  "coverage": [
+    {
+      "institution": "ISTAT",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "Eurostat",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "INPS",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "MLPS",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "INAPP",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "Unioncamere",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "INAIL",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "ILO",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "Banca d’Italia",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "MEF",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "OECD",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "World Bank",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "CNEL",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "ADAPT",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "Fondazione Studi CdL",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    },
+    {
+      "institution": "DG EMPL",
+      "status": "partial",
+      "note": "Fixture sintetica (modalità demo, NON REALE): fonte non consultata, nessuna verifica di date reali."
+    }
+  ],
+  "events": [
+    {
+      "institution": "ISTAT",
+      "title": "Evento sintetico 1 (NON REALE)",
+      "date": "2026-11-23",
+      "url": "https://www.istat.it/",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Test di formattazione, non una pubblicazione reale.",
+      "evidence": "Dato sintetico."
+    },
+    {
+      "institution": "Eurostat",
+      "title": "Evento sintetico 2 (NON REALE)",
+      "date": "2026-11-30",
+      "url": "https://ec.europa.eu/eurostat/news/release-calendar",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Test di formattazione, non una pubblicazione reale.",
+      "evidence": "Dato sintetico."
+    },
+    {
+      "institution": "INPS",
+      "title": "Evento sintetico 3 (NON REALE)",
+      "date": "2026-12-07",
+      "url": "https://www.inps.it/",
+      "relevance": "high",
+      "certainty": "confirmed",
+      "why": "Test di formattazione, non una pubblicazione reale.",
+      "evidence": "Dato sintetico."
+    },
+    {
+      "institution": "MLPS",
+      "title": "Evento sintetico aggiuntivo del revisore (NON REALE)",
+      "date": "2026-12-14",
+      "url": "https://www.lavoro.gov.it/",
+      "relevance": "medium",
+      "certainty": "tentative",
+      "why": "NON REALE: evento sintetico di prova aggiunto dal revisore per verificare la formattazione; non corrisponde ad alcuna pubblicazione o iniziativa reale.",
+      "evidence": "NON REALE: dato sintetico, nessuna fonte consultata."
+    }
+  ]
+}
